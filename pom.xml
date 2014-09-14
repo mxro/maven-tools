@@ -323,9 +323,9 @@
 	</developers>
 
 	<scm>
-		<connection>scm:git:git@github.com:mxro/java-start-process.git</connection>
-		<url>https://github.com/mxro/java-start-process</url>
-		<developerConnection>scm:git:git@github.com:mxro/java-start-process.git
+		<connection>scm:git:git@github.com:mxro/maven-tools.git</connection>
+		<url>https://github.com/mxro/maven-tools</url>
+		<developerConnection>scm:git:git@github.com:mxro/maven-tools.git
 		</developerConnection>
 	</scm>
 
