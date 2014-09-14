@@ -7,6 +7,12 @@ import java.util.Date;
 
 import de.mxro.process.Spawn;
 
+/**
+ * Utility methods for working with Maven remote repositories.
+ * 
+ * @author <a href="http://www.mxro.de">Max Rohde</a>
+ *
+ */
 public class MavenRemoteRepository {
 
     public static void downloadRepositoryXml(final String repositoryUrl, final Path destFolder, final String groupId,
