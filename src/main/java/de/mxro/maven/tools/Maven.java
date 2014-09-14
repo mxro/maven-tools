@@ -20,20 +20,6 @@ import de.mxro.process.Spawn;
 
 public class Maven {
 
-    public static abstract class Dependency {
-        public abstract String groupId();
-
-        public abstract String artifactId();
-
-        public abstract String version();
-
-        @Override
-        public String toString() {
-            return "(" + groupId() + ":" + artifactId() + ":" + version() + ")";
-        }
-
-    }
-
     private static List<File> orderDirectoriesByBuildOrder(final List<File> directories,
             final List<Dependency> buildOrder, final boolean addOthers) {
 
