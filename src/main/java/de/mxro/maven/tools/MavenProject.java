@@ -18,7 +18,13 @@ import java.util.regex.Pattern;
 
 import de.mxro.process.Spawn;
 
-public class Maven {
+/**
+ * Utility methods for working with Maven projects.
+ * 
+ * @author <a href="http://www.mxro.de">Max Rohde</a>
+ *
+ */
+public class MavenProject {
 
     private static List<File> orderDirectoriesByBuildOrder(final List<File> directories,
             final List<Dependency> buildOrder, final boolean addOthers) {

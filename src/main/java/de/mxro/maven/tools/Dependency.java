@@ -1,6 +1,7 @@
 package de.mxro.maven.tools;
 
 public abstract class Dependency {
+
     public abstract String groupId();
 
     public abstract String artifactId();
