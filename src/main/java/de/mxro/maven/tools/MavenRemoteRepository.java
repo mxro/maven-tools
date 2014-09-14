@@ -9,14 +9,14 @@ import de.mxro.process.Spawn;
 
 public class MavenRemoteRepository {
 
-    public static void downloadRepositoryXml(final Path destFolder, final String groupId, final String artifactId) {
+    public static void downloadRepositoryXml(final String repositoryUrl, final Path destFolder, final String groupId,
+            final String artifactId) {
 
         if (Files.exists(destFolder.resolve("maven-metadata.xml"))) {
             throw new RuntimeException("maven-metadata.xml file already existed in folder: " + destFolder);
         }
 
-        final String path = "http://maven.appjangle.com/appjangle/releases/" + groupId.replaceAll("\\.", "/") + "/"
-                + artifactId + "/maven-metadata.xml";
+        final String path = repositoryUrl + groupId.replaceAll("\\.", "/") + "/" + artifactId + "/maven-metadata.xml";
         final String output = Spawn.runBashCommand("wget " + path, destFolder.toFile());
         System.out.println(output);
 
