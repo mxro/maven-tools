@@ -20,10 +20,6 @@ import de.mxro.process.Spawn;
 
 public class Maven {
 
-    public static void main(final String[] args) {
-
-    }
-
     public static abstract class Dependency {
         public abstract String groupId();
 
