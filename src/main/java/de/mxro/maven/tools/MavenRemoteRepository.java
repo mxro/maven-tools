@@ -15,7 +15,7 @@ import de.mxro.process.Spawn;
  */
 public class MavenRemoteRepository {
 
-    public static void downloadRepositoryXml(final String repositoryUrl, final Path destFolder, final String groupId,
+    public static void downloadOrCreateRepositoryXml(final String repositoryUrl, final Path destFolder, final String groupId,
             final String artifactId) {
 
         if (Files.exists(destFolder.resolve("maven-metadata.xml"))) {
