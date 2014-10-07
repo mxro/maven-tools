@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.appjangle.automatic.clients.WriteHashes;
+
 import de.mxro.process.Spawn;
 
 /**
@@ -56,6 +58,79 @@ public class MavenRemoteRepository {
 
         Files.write(mavenMetadata, mavenMetadataString.getBytes("UTF-8"));
 
+    }
+
+    /**
+     * If there is a -distribution JAR in the source project, this is deployed
+     * as the main JAR, otherwise the normal JAR is deployed.
+     * 
+     * @param sourceDir
+     * @param sourceJar
+     *            may be null
+     * @param groupId
+     * @param artifactId
+     * @param newVersion
+     * @throws Exception
+     */
+    public static void performDeployment(final Path sourceDir, Path sourceJar, final String groupId,
+            final String artifactId, final String newVersion) throws Exception {
+    
+        final Path deploymentDir = Files.createTempDirectory("maven-deployment"); // FileSystems.getDefault().getPath("/data/tmp");
+    
+        downloadRepositoryXml("http://maven.appjangle.com/appjangle/releases/", deploymentDir,
+                groupId, artifactId);
+    
+        assertVersionInRepositoryXml(deploymentDir, newVersion);
+    
+        final Path metadataFile = deploymentDir.resolve("maven-metadata.xml");
+    
+        assert Files.exists(metadataFile);
+    
+        WriteHashes.forFile(metadataFile);
+    
+        final Path versionDir = deploymentDir.resolve(newVersion);
+        Files.createDirectory(versionDir);
+    
+        if (sourceJar == null) {
+            final Path distributionJar = sourceDir.resolve("target/" + artifactId + "-" + newVersion
+                    + "-distribution.jar");
+    
+            if (Files.exists(distributionJar)) {
+                sourceJar = distributionJar;
+            } else {
+                sourceJar = sourceDir.resolve("target/" + artifactId + "-" + newVersion + ".jar");
+            }
+        }
+    
+        final Path newJar = versionDir.resolve(artifactId + "-" + newVersion + ".jar");
+    
+        Files.copy(sourceJar, newJar);
+    
+        WriteHashes.forFile(newJar);
+    
+        final Path sourcePom = sourceDir.resolve("pom.xml");
+    
+        final byte[] sourcePomBytes = Files.readAllBytes(sourcePom);
+    
+        final String sourcePomText = new String(sourcePomBytes, "UTF-8");
+    
+        final Path destPom = versionDir.resolve(artifactId + "-" + newVersion + ".pom");
+    
+        Files.write(destPom, sourcePomText.replaceAll("<!-- inject-provided-scope -->", "<scope>provided</scope>")
+                .getBytes("UTF-8"));
+    
+        WriteHashes.forFile(destPom);
+    
+        final String deploymentPath = groupId.replaceAll("\\.", "/") + "/" + artifactId;
+    
+        final String command = "rsync -avz -e \"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null\" --progress "
+                + deploymentDir.toFile().getAbsolutePath()
+                + "/*"
+                + " maven@maven.appjangle.com:/mxdata/mvn/appjangle/releases/" + deploymentPath;
+        System.out.println(command);
+    
+        System.out.println(Spawn.runBashCommand(command, deploymentDir.toFile()));
+    
     }
 
 }
