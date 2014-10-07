@@ -1,5 +1,6 @@
 package de.mxro.maven.tools;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
@@ -16,7 +17,7 @@ import de.mxro.process.Spawn;
 public class MavenRemoteRepository {
 
     public static void downloadOrCreateRepositoryXml(final String repositoryUrl, final Path destFolder,
-            final String groupId, final String artifactId) {
+            final String groupId, final String artifactId) throws IOException {
 
         if (Files.exists(destFolder.resolve("maven-metadata.xml"))) {
             throw new RuntimeException("maven-metadata.xml file already existed in folder: " + destFolder);
@@ -27,7 +28,7 @@ public class MavenRemoteRepository {
         System.out.println(output);
 
         if (output.contains("ERROR 404") || output.contains("Not Found")) {
-
+            final Path file = Files.createFile(destFolder.resolve("maven-metadata.xml"));
             return;
         }
 
