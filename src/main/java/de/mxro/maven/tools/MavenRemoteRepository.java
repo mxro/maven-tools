@@ -15,8 +15,8 @@ import de.mxro.process.Spawn;
  */
 public class MavenRemoteRepository {
 
-    public static void downloadOrCreateRepositoryXml(final String repositoryUrl, final Path destFolder, final String groupId,
-            final String artifactId) {
+    public static void downloadOrCreateRepositoryXml(final String repositoryUrl, final Path destFolder,
+            final String groupId, final String artifactId) {
 
         if (Files.exists(destFolder.resolve("maven-metadata.xml"))) {
             throw new RuntimeException("maven-metadata.xml file already existed in folder: " + destFolder);
@@ -25,6 +25,11 @@ public class MavenRemoteRepository {
         final String path = repositoryUrl + groupId.replaceAll("\\.", "/") + "/" + artifactId + "/maven-metadata.xml";
         final String output = Spawn.runBashCommand("wget " + path, destFolder.toFile());
         System.out.println(output);
+
+        if (output.contains("ERROR 404") || output.contains("Not Found")) {
+
+            return;
+        }
 
         if (output.contains("ERROR")) {
             throw new RuntimeException("Error while downloading repository index file from: " + path);
