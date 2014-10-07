@@ -111,20 +111,20 @@ public class MavenRemoteRepository {
 
         WriteHashes.forFile(newJar);
 
-        final Path sourcePom = sourceDir.resolve("pom.xml");
+        final Path sourcePom = params.projectDir().resolve("pom.xml");
 
         final byte[] sourcePomBytes = Files.readAllBytes(sourcePom);
 
         final String sourcePomText = new String(sourcePomBytes, "UTF-8");
 
-        final Path destPom = versionDir.resolve(artifactId + "-" + newVersion + ".pom");
+        final Path destPom = versionDir.resolve(params.artifact().artifactId() + "-" + params.artifact().version() + ".pom");
 
         Files.write(destPom, sourcePomText.replaceAll("<!-- inject-provided-scope -->", "<scope>provided</scope>")
                 .getBytes("UTF-8"));
 
         WriteHashes.forFile(destPom);
 
-        final String deploymentPath = groupId.replaceAll("\\.", "/") + "/" + artifactId;
+        final String deploymentPath = params.artifact().groupId().replaceAll("\\.", "/") + "/" + params.artifact().artifactId();
 
         final String command = "rsync -avz -e \"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null\" --progress "
                 + deploymentDir.toFile().getAbsolutePath()
