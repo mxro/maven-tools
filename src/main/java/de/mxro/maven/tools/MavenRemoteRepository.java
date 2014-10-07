@@ -29,6 +29,21 @@ public class MavenRemoteRepository {
 
         if (output.contains("ERROR 404") || output.contains("Not Found")) {
             final Path file = Files.createFile(destFolder.resolve("maven-metadata.xml"));
+
+            String xml = "";
+            xml += "<metadata>\n";
+            xml += "  <groupId>" + groupId + "</groupId>\n";
+            xml += "  <artifactId>" + artifactId + "</artifactId>\n";
+            xml += "  <versioning>\n";
+            xml += "    <release>0.0.0</release>\n";
+            xml += "    <versions>\n";
+            xml += "    </versions>\n";
+            xml += "    <lastUpdated>00000</lastUpdated>\n";
+            xml += "  </versioning>\n";
+            xml += "</metadata>";
+
+            Files.write(file, bytes);
+
             return;
         }
 
