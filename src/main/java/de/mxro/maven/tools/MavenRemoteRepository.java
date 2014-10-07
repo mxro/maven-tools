@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import de.mxro.maven.tools.deploy.DeploymentParameters;
+import de.mxro.maven.tools.deploy.DeploymentParametersBuilder;
 import de.mxro.process.Spawn;
 
 /**
@@ -58,6 +60,10 @@ public class MavenRemoteRepository {
 
     }
 
+    public static DeploymentParametersBuilder deploymentParameters() {
+        return new DeploymentParametersBuilder();
+    }
+
     /**
      * If there is a -distribution JAR in the source project, this is deployed
      * as the main JAR, otherwise the normal JAR is deployed.
@@ -70,8 +76,7 @@ public class MavenRemoteRepository {
      * @param newVersion
      * @throws Exception
      */
-    public static void performDeployment(final Path sourceDir, Path sourceJar, final String groupId,
-            final String artifactId, final String newVersion) throws Exception {
+    public static void performDeployment(final DeploymentParameters params) throws Exception {
 
         final Path deploymentDir = Files.createTempDirectory("maven-deployment"); // FileSystems.getDefault().getPath("/data/tmp");
 
