@@ -42,7 +42,7 @@ public class MavenRemoteRepository {
             xml += "  </versioning>\n";
             xml += "</metadata>";
 
-            Files.write(file, bytes);
+            Files.write(file, xml.getBytes("UTF-8"));
 
             return;
         }
