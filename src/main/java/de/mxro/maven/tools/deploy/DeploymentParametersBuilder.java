@@ -12,24 +12,29 @@ public class DeploymentParametersBuilder {
     private String repositoryRemoteUri;
     private String rsyncConnectionPath;
 
-    public void setArtifact(final Dependency artifact) {
+    public DeploymentParametersBuilder setArtifact(final Dependency artifact) {
         this.artifact = artifact;
+        return this;
     }
 
-    public void setProjectDir(final Path projectDir) {
+    public DeploymentParametersBuilder setProjectDir(final Path projectDir) {
         this.projectDir = projectDir;
+        return this;
     }
 
-    public void setForcedSourceJar(final Path forcedSourceJar) {
+    public DeploymentParametersBuilder setForcedSourceJar(final Path forcedSourceJar) {
         this.forcedSourceJar = forcedSourceJar;
+        return this;
     }
 
-    public void setRepositoryRemoteUri(final String repositoryRemoteUri) {
+    public DeploymentParametersBuilder setRepositoryRemoteUri(final String repositoryRemoteUri) {
         this.repositoryRemoteUri = repositoryRemoteUri;
+        return this;
     }
 
-    public void setRsyncConnectionPath(final String rsyncConnectionPath) {
+    public DeploymentParametersBuilder setRsyncConnectionPath(final String rsyncConnectionPath) {
         this.rsyncConnectionPath = rsyncConnectionPath;
+        return this;
     }
 
     public DeploymentParameters build() {
