@@ -80,7 +80,8 @@ public class MavenRemoteRepository {
 
         final Path deploymentDir = Files.createTempDirectory("maven-deployment"); // FileSystems.getDefault().getPath("/data/tmp");
 
-        downloadRepositoryXml("http://maven.appjangle.com/appjangle/releases/", deploymentDir, params.artifact().groupId(), params.artifact().artifactId());
+        downloadRepositoryXml("http://maven.appjangle.com/appjangle/releases/", deploymentDir, params.artifact()
+                .groupId(), params.artifact().artifactId());
 
         assertVersionInRepositoryXml(deploymentDir, params.artifact().version());
 
@@ -93,19 +94,22 @@ public class MavenRemoteRepository {
         final Path versionDir = deploymentDir.resolve(params.artifact().version());
         Files.createDirectory(versionDir);
 
-        Path sourceJar = params.forcedSourceJar()
-                if (sourceJar == null) {
-                    final Path distributionJar = params.projectDir().resolve("target/" + params.artifact().artifactId() + "-" + params.artifact().version()
-                            + "-distribution.jar");
+        Path sourceJar = params.forcedSourceJar();
+        if (sourceJar == null) {
+            final Path distributionJar = params.projectDir().resolve(
+                    "target/" + params.artifact().artifactId() + "-" + params.artifact().version()
+                    + "-distribution.jar");
 
-                    if (Files.exists(distributionJar)) {
-                        sourceJar = distributionJar;
-                    } else {
-                        sourceJar = params.projectDir().resolve("target/" + params.artifact().artifactId() + "-" + params.artifact().version() + ".jar");
-                    }
-                }
+            if (Files.exists(distributionJar)) {
+                sourceJar = distributionJar;
+            } else {
+                sourceJar = params.projectDir().resolve(
+                        "target/" + params.artifact().artifactId() + "-" + params.artifact().version() + ".jar");
+            }
+        }
 
-        final Path newJar = versionDir.resolve(params.artifact().artifactId() + "-" + params.artifact().version() + ".jar");
+        final Path newJar = versionDir.resolve(params.artifact().artifactId() + "-" + params.artifact().version()
+                + ".jar");
 
         Files.copy(sourceJar, newJar);
 
@@ -117,14 +121,16 @@ public class MavenRemoteRepository {
 
         final String sourcePomText = new String(sourcePomBytes, "UTF-8");
 
-        final Path destPom = versionDir.resolve(params.artifact().artifactId() + "-" + params.artifact().version() + ".pom");
+        final Path destPom = versionDir.resolve(params.artifact().artifactId() + "-" + params.artifact().version()
+                + ".pom");
 
         Files.write(destPom, sourcePomText.replaceAll("<!-- inject-provided-scope -->", "<scope>provided</scope>")
                 .getBytes("UTF-8"));
 
         WriteHashes.forFile(destPom);
 
-        final String deploymentPath = params.artifact().groupId().replaceAll("\\.", "/") + "/" + params.artifact().artifactId();
+        final String deploymentPath = params.artifact().groupId().replaceAll("\\.", "/") + "/"
+                + params.artifact().artifactId();
 
         final String command = "rsync -avz -e \"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null\" --progress "
                 + deploymentDir.toFile().getAbsolutePath()
