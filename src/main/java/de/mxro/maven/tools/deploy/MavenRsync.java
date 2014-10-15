@@ -40,7 +40,7 @@ public class MavenRsync {
                         params.artifact());
 
                 final String command = "ssh " + params.user() + "@" + params.server() + " mkdir -p "
-                        + remoteDeploymentPath;
+                        + params.serverDir() + remoteDeploymentPath;
                 System.out.println(command);
                 System.out.println(Spawn.runBashCommand(command));
 
