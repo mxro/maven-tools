@@ -13,8 +13,6 @@ public interface DeploymentParameters {
 
     public String repositoryRemoteUri();
 
-    public String rsyncConnectionPath();
-
     /**
      * @return Path to server directory.
      */

@@ -10,7 +10,6 @@ public class DeploymentParametersBuilder {
     private Path projectDir;
     private Path forcedSourceJar;
     private String repositoryRemoteUri;
-    private String rsyncConnectionPath;
     protected String serverDir;
     protected String server;
     protected String user;
@@ -35,11 +34,6 @@ public class DeploymentParametersBuilder {
         return this;
     }
 
-    public DeploymentParametersBuilder setRsyncConnectionPath(final String rsyncConnectionPath) {
-        this.rsyncConnectionPath = rsyncConnectionPath;
-        return this;
-    }
-
     public DeploymentParametersBuilder setServerDir(final String serverDir) {
         this.serverDir = serverDir;
         return this;
@@ -57,11 +51,6 @@ public class DeploymentParametersBuilder {
 
     public DeploymentParameters build() {
         return new DeploymentParameters() {
-
-            @Override
-            public String rsyncConnectionPath() {
-                return rsyncConnectionPath;
-            }
 
             @Override
             public String repositoryRemoteUri() {

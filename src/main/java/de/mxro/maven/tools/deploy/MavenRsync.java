@@ -56,7 +56,7 @@ public class MavenRsync {
             if (sourceJar == null) {
                 final Path distributionJar = params.projectDir().resolve(
                         "target/" + params.artifact().artifactId() + "-" + params.artifact().version()
-                        + "-distribution.jar");
+                                + "-distribution.jar");
 
                 if (Files.exists(distributionJar)) {
                     sourceJar = distributionJar;
@@ -87,11 +87,13 @@ public class MavenRsync {
 
             WriteHashes.forFile(destPom);
 
+            final String rsyncConnectionPath = params.user() + "@" + params.server() + ":" + params.serverDir();
+
             final String command = "rsync -avz -e \"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null\" --progress "
                     + deploymentDir.toFile().getAbsolutePath()
                     + "/*"
                     + " "
-                    + params.rsyncConnectionPath()
+                    + rsyncConnectionPath
                     + remoteDeploymentPath;
             System.out.println(command);
 
