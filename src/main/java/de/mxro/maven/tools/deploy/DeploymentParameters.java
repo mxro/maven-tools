@@ -14,4 +14,20 @@ public interface DeploymentParameters {
     public String repositoryRemoteUri();
 
     public String rsyncConnectionPath();
+
+    /**
+     * @return Path to server directory.
+     */
+    public String serverDir();
+
+    /**
+     * @return Domain of the server
+     */
+    public String server();
+
+    /**
+     * 
+     * @return User to be used to log in at server.
+     */
+    public String user();
 }
