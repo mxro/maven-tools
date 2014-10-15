@@ -39,12 +39,15 @@ public class MavenRemoteRepository {
 
         if (output.contains("ERROR 404") || output.contains("Not Found")) {
 
-            return;
+            return false;
         }
 
         if (output.contains("ERROR")) {
+            System.out.println(output);
             throw new RuntimeException("Error while downloading repository index file from: " + path);
         }
+
+        return true;
 
     }
 
