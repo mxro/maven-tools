@@ -29,11 +29,15 @@ public class MavenRsync {
         try {
             final Path deploymentDir = Files.createTempDirectory("maven-deployment"); // FileSystems.getDefault().getPath("/data/tmp");
 
+            final String remoteDeploymentPath = params.artifact().groupId().replaceAll("\\.", "/") + "/"
+                    + params.artifact().artifactId();
+
             final boolean xmlExists = MavenRemoteRepository.downloadRepositoryXml(params.repositoryRemoteUri(),
                     deploymentDir, params.artifact());
 
             if (!xmlExists) {
-                MavenRemoteRepository.createRepositoryXml(params.repositoryRemoteUri(), deploymentDir, params.artifact());
+                MavenRemoteRepository.createRepositoryXml(params.repositoryRemoteUri(), deploymentDir,
+                        params.artifact());
 
             }
 
@@ -52,7 +56,7 @@ public class MavenRsync {
             if (sourceJar == null) {
                 final Path distributionJar = params.projectDir().resolve(
                         "target/" + params.artifact().artifactId() + "-" + params.artifact().version()
-                        + "-distribution.jar");
+                                + "-distribution.jar");
 
                 if (Files.exists(distributionJar)) {
                     sourceJar = distributionJar;
@@ -83,15 +87,12 @@ public class MavenRsync {
 
             WriteHashes.forFile(destPom);
 
-            final String deploymentPath = params.artifact().groupId().replaceAll("\\.", "/") + "/"
-                    + params.artifact().artifactId();
-
             final String command = "rsync -avz -e \"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null\" --progress "
                     + deploymentDir.toFile().getAbsolutePath()
                     + "/*"
                     + " "
                     + params.rsyncConnectionPath()
-                    + deploymentPath;
+                    + remoteDeploymentPath;
             System.out.println(command);
 
             System.out.println(Spawn.runBashCommand(command, deploymentDir.toFile()));
