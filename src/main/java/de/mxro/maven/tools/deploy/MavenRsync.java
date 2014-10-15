@@ -39,6 +39,9 @@ public class MavenRsync {
                 MavenRemoteRepository.createRepositoryXml(params.repositoryRemoteUri(), deploymentDir,
                         params.artifact());
 
+                System.out.println(Spawn.runBashCommand("ssh " + params.user() + "@" + params.server() + " mkdir -p "
+                        + remoteDeploymentPath));
+
             }
 
             MavenRemoteRepository.assertVersionInRepositoryXml(deploymentDir, params.artifact().version());
