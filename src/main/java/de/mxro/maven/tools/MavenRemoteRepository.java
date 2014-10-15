@@ -16,7 +16,7 @@ import de.mxro.process.Spawn;
  */
 public class MavenRemoteRepository {
 
-    public static void downloadOrCreateRepositoryXml(final String repositoryUrl, final Path destFolder,
+    public static void downloadRepositoryXml(final String repositoryUrl, final Path destFolder,
             final String groupId, final String artifactId) throws IOException {
 
         if (Files.exists(destFolder.resolve("maven-metadata.xml"))) {
@@ -25,7 +25,6 @@ public class MavenRemoteRepository {
 
         final String path = repositoryUrl + groupId.replaceAll("\\.", "/") + "/" + artifactId + "/maven-metadata.xml";
         final String output = Spawn.runBashCommand("wget " + path, destFolder.toFile());
-        System.out.println(output);
 
         if (output.contains("ERROR 404") || output.contains("Not Found")) {
             final Path file = Files.createFile(destFolder.resolve("maven-metadata.xml"));

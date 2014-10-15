@@ -29,7 +29,7 @@ public class MavenRsync {
         try {
             final Path deploymentDir = Files.createTempDirectory("maven-deployment"); // FileSystems.getDefault().getPath("/data/tmp");
 
-            MavenRemoteRepository.downloadOrCreateRepositoryXml(params.repositoryRemoteUri(), deploymentDir, params.artifact()
+            MavenRemoteRepository.downloadRepositoryXml(params.repositoryRemoteUri(), deploymentDir, params.artifact()
                     .groupId(), params.artifact().artifactId());
 
             MavenRemoteRepository.assertVersionInRepositoryXml(deploymentDir, params.artifact().version());
