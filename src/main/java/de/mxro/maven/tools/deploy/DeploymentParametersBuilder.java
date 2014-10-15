@@ -11,6 +11,9 @@ public class DeploymentParametersBuilder {
     private Path forcedSourceJar;
     private String repositoryRemoteUri;
     private String rsyncConnectionPath;
+    protected String serverDir;
+    protected String server;
+    protected String user;
 
     public DeploymentParametersBuilder setArtifact(final Dependency artifact) {
         this.artifact = artifact;
@@ -34,6 +37,21 @@ public class DeploymentParametersBuilder {
 
     public DeploymentParametersBuilder setRsyncConnectionPath(final String rsyncConnectionPath) {
         this.rsyncConnectionPath = rsyncConnectionPath;
+        return this;
+    }
+
+    public DeploymentParametersBuilder setServerDir(final String serverDir) {
+        this.serverDir = serverDir;
+        return this;
+    }
+
+    public DeploymentParametersBuilder setServer(final String server) {
+        this.server = server;
+        return this;
+    }
+
+    public DeploymentParametersBuilder setUser(final String user) {
+        this.user = user;
         return this;
     }
 
@@ -63,6 +81,21 @@ public class DeploymentParametersBuilder {
             @Override
             public Dependency artifact() {
                 return artifact;
+            }
+
+            @Override
+            public String serverDir() {
+                return serverDir;
+            }
+
+            @Override
+            public String server() {
+                return server;
+            }
+
+            @Override
+            public String user() {
+                return user;
             }
         };
     }

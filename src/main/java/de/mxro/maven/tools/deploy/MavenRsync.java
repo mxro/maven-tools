@@ -56,7 +56,7 @@ public class MavenRsync {
             if (sourceJar == null) {
                 final Path distributionJar = params.projectDir().resolve(
                         "target/" + params.artifact().artifactId() + "-" + params.artifact().version()
-                                + "-distribution.jar");
+                        + "-distribution.jar");
 
                 if (Files.exists(distributionJar)) {
                     sourceJar = distributionJar;
