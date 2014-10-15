@@ -22,19 +22,19 @@ public class MavenRemoteRepository {
      * 
      * @param repositoryUrl
      * @param destFolder
-     * @param groupId
-     * @param artifactId
+     * 
      * @return true if xml file could be downloaded, false otherwise.
      * @throws IOException
      */
     public static boolean downloadRepositoryXml(final String repositoryUrl, final Path destFolder,
-            final String groupId, final String artifactId) throws IOException {
+            final Dependency dependency) throws IOException {
 
         if (Files.exists(destFolder.resolve("maven-metadata.xml"))) {
             throw new RuntimeException("maven-metadata.xml file already existed in folder: " + destFolder);
         }
 
-        final String path = repositoryUrl + groupId.replaceAll("\\.", "/") + "/" + artifactId + "/maven-metadata.xml";
+        final String path = repositoryUrl + dependency.groupId().replaceAll("\\.", "/") + "/" + dependency.artifactId()
+                + "/maven-metadata.xml";
         final String output = Spawn.runBashCommand("wget " + path, destFolder.toFile());
 
         if (output.contains("ERROR 404") || output.contains("Not Found")) {
