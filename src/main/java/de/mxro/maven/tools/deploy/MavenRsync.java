@@ -39,8 +39,10 @@ public class MavenRsync {
                 MavenRemoteRepository.createRepositoryXml(params.repositoryRemoteUri(), deploymentDir,
                         params.artifact());
 
-                System.out.println(Spawn.runBashCommand("ssh " + params.user() + "@" + params.server() + " mkdir -p "
-                        + remoteDeploymentPath));
+                final String command = "ssh " + params.user() + "@" + params.server() + " mkdir -p "
+                        + remoteDeploymentPath;
+                System.out.println(command);
+                System.out.println(Spawn.runBashCommand(command));
 
             }
 
@@ -59,7 +61,7 @@ public class MavenRsync {
             if (sourceJar == null) {
                 final Path distributionJar = params.projectDir().resolve(
                         "target/" + params.artifact().artifactId() + "-" + params.artifact().version()
-                                + "-distribution.jar");
+                        + "-distribution.jar");
 
                 if (Files.exists(distributionJar)) {
                     sourceJar = distributionJar;
