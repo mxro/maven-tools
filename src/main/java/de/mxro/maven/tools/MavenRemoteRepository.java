@@ -16,8 +16,19 @@ import de.mxro.process.Spawn;
  */
 public class MavenRemoteRepository {
 
-    public static void downloadRepositoryXml(final String repositoryUrl, final Path destFolder, final String groupId,
-            final String artifactId) throws IOException {
+    /**
+     * <p>
+     * Downloads the <code>maven-metadata.xml</code> from a remote repository.
+     * 
+     * @param repositoryUrl
+     * @param destFolder
+     * @param groupId
+     * @param artifactId
+     * @return true if xml file could be downloaded, false otherwise.
+     * @throws IOException
+     */
+    public static boolean downloadRepositoryXml(final String repositoryUrl, final Path destFolder,
+            final String groupId, final String artifactId) throws IOException {
 
         if (Files.exists(destFolder.resolve("maven-metadata.xml"))) {
             throw new RuntimeException("maven-metadata.xml file already existed in folder: " + destFolder);
