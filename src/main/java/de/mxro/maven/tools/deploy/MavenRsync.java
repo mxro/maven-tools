@@ -29,8 +29,13 @@ public class MavenRsync {
         try {
             final Path deploymentDir = Files.createTempDirectory("maven-deployment"); // FileSystems.getDefault().getPath("/data/tmp");
 
-            MavenRemoteRepository.downloadRepositoryXml(params.repositoryRemoteUri(), deploymentDir, params.artifact()
-                    .groupId(), params.artifact().artifactId());
+            final boolean xmlExists = MavenRemoteRepository.downloadRepositoryXml(params.repositoryRemoteUri(),
+                    deploymentDir, params.artifact());
+
+            if (!xmlExists) {
+                MavenRemoteRepository.createRepositoryXml(params.repositoryRemoteUri(), deploymentDir, params.artifact());
+
+            }
 
             MavenRemoteRepository.assertVersionInRepositoryXml(deploymentDir, params.artifact().version());
 
@@ -47,7 +52,7 @@ public class MavenRsync {
             if (sourceJar == null) {
                 final Path distributionJar = params.projectDir().resolve(
                         "target/" + params.artifact().artifactId() + "-" + params.artifact().version()
-                                + "-distribution.jar");
+                        + "-distribution.jar");
 
                 if (Files.exists(distributionJar)) {
                     sourceJar = distributionJar;

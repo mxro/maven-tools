@@ -51,14 +51,14 @@ public class MavenRemoteRepository {
 
     }
 
-    public static void createRepository(final String repositoryUrl, final Path destFolder, final String groupId,
-            final String artifactId) throws IOException {
+    public static void createRepositoryXml(final String repositoryUrl, final Path destFolder, final Dependency dependency)
+            throws IOException {
         final Path file = Files.createFile(destFolder.resolve("maven-metadata.xml"));
 
         String xml = "";
         xml += "<metadata>\n";
-        xml += "  <groupId>" + groupId + "</groupId>\n";
-        xml += "  <artifactId>" + artifactId + "</artifactId>\n";
+        xml += "  <groupId>" + dependency.groupId() + "</groupId>\n";
+        xml += "  <artifactId>" + dependency.artifactId() + "</artifactId>\n";
         xml += "  <versioning>\n";
         xml += "    <release>0.0.0</release>\n";
         xml += "    <versions>\n";
