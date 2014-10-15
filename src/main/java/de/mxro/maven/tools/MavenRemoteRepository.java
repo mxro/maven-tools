@@ -16,8 +16,8 @@ import de.mxro.process.Spawn;
  */
 public class MavenRemoteRepository {
 
-    public static void downloadRepositoryXml(final String repositoryUrl, final Path destFolder,
-            final String groupId, final String artifactId) throws IOException {
+    public static void downloadRepositoryXml(final String repositoryUrl, final Path destFolder, final String groupId,
+            final String artifactId) throws IOException {
 
         if (Files.exists(destFolder.resolve("maven-metadata.xml"))) {
             throw new RuntimeException("maven-metadata.xml file already existed in folder: " + destFolder);
@@ -27,21 +27,6 @@ public class MavenRemoteRepository {
         final String output = Spawn.runBashCommand("wget " + path, destFolder.toFile());
 
         if (output.contains("ERROR 404") || output.contains("Not Found")) {
-            final Path file = Files.createFile(destFolder.resolve("maven-metadata.xml"));
-
-            String xml = "";
-            xml += "<metadata>\n";
-            xml += "  <groupId>" + groupId + "</groupId>\n";
-            xml += "  <artifactId>" + artifactId + "</artifactId>\n";
-            xml += "  <versioning>\n";
-            xml += "    <release>0.0.0</release>\n";
-            xml += "    <versions>\n";
-            xml += "    </versions>\n";
-            xml += "    <lastUpdated>00000</lastUpdated>\n";
-            xml += "  </versioning>\n";
-            xml += "</metadata>";
-
-            Files.write(file, xml.getBytes("UTF-8"));
 
             return;
         }
@@ -50,6 +35,25 @@ public class MavenRemoteRepository {
             throw new RuntimeException("Error while downloading repository index file from: " + path);
         }
 
+    }
+
+    public static void createRepository(final String repositoryUrl, final Path destFolder, final String groupId,
+            final String artifactId) throws IOException {
+        final Path file = Files.createFile(destFolder.resolve("maven-metadata.xml"));
+
+        String xml = "";
+        xml += "<metadata>\n";
+        xml += "  <groupId>" + groupId + "</groupId>\n";
+        xml += "  <artifactId>" + artifactId + "</artifactId>\n";
+        xml += "  <versioning>\n";
+        xml += "    <release>0.0.0</release>\n";
+        xml += "    <versions>\n";
+        xml += "    </versions>\n";
+        xml += "    <lastUpdated>00000</lastUpdated>\n";
+        xml += "  </versioning>\n";
+        xml += "</metadata>";
+
+        Files.write(file, xml.getBytes("UTF-8"));
     }
 
     public static void assertVersionInRepositoryXml(final Path destFolder, final String newVersion) throws Exception {
