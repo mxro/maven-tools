@@ -295,8 +295,6 @@ public class MavenProject {
             throw new IllegalArgumentException("Specified directory does not contain a pom.xml file: " + projectDir);
         }
 
-        final String text = pom.getText();
-
         Document document;
         try {
             document = $(JOOX.builder().parse(new File(pom.getPath()))).document();
@@ -307,6 +305,7 @@ public class MavenProject {
         final Match baseMatch = $(document);
         final Match children = baseMatch.find("dependencies").child("dependency");
 
+        boolean changed = false;
         for (final org.w3c.dom.Element e : children) {
 
             final String groupId = $(e).child("groupId").content();
@@ -327,34 +326,39 @@ public class MavenProject {
 
             if (newDependency.version() != null) {
                 $(e).child("version").content(newDependency.version());
+                changed = true;
             }
 
             if (newDependency.groupId() != null) {
                 $(e).child("groupId").content(newDependency.groupId());
+                changed = true;
             }
 
             if (newDependency.artifactId() != null) {
                 $(e).child("artifactId").content(newDependency.artifactId());
+                changed = true;
             }
 
         }
 
-        try {
-            final TransformerFactory tf = TransformerFactory.newInstance();
-            final Transformer transformer = tf.newTransformer();
-            // transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
-            // "yes");
-            final StringWriter writer = new StringWriter();
+        if (changed) {
+            try {
+                final TransformerFactory tf = TransformerFactory.newInstance();
+                final Transformer transformer = tf.newTransformer();
+                // transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
+                // "yes");
+                final StringWriter writer = new StringWriter();
 
-            transformer.transform(new DOMSource(document), new StreamResult(writer));
+                transformer.transform(new DOMSource(document), new StreamResult(writer));
 
-            final String output = writer.getBuffer().toString();
+                final String output = writer.getBuffer().toString();
 
-            System.out.println("Defining new pom\n");
-            System.out.println(output);
-            // pom.setText(output);
-        } catch (final TransformerException e1) {
-            throw new RuntimeException(e1);
+                System.out.println("Defining new pom\n");
+                System.out.println(output);
+                // pom.setText(output);
+            } catch (final TransformerException e1) {
+                throw new RuntimeException(e1);
+            }
         }
 
     }
