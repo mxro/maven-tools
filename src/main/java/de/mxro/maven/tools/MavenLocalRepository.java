@@ -14,6 +14,13 @@ public class MavenLocalRepository {
 
     }
 
+    /**
+     * Determines the path within a local repository for a maven artifact.
+     * 
+     * @param artifact
+     * @param localRepositoryRoot
+     * @return
+     */
     public static File getFolderInLocalRepository(final Dependency artifact, final File localRepositoryRoot) {
         final String artifactRootPath = localRepositoryRoot.getAbsolutePath() + "/"
                 + artifact.groupId().replace(".", "/") + "/" + artifact.artifactId() + "/" + artifact.version();
