@@ -328,15 +328,15 @@ public class MavenProject {
             final String artifactId = $(e).child("artifactId").content();
             final String version = $(e).child("version").content();
 
-            if (oldDependency.version() != null && !oldDependency.version().equals(version)) {
-                continue;
-            }
-
             if (oldDependency.groupId() != null && !oldDependency.groupId().equals(groupId)) {
                 continue;
             }
 
             if (oldDependency.artifactId() != null && !oldDependency.artifactId().equals(artifactId)) {
+                continue;
+            }
+
+            if (oldDependency.version() != null && !oldDependency.version().equals(version)) {
                 continue;
             }
 
