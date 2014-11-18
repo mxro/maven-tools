@@ -1,5 +1,7 @@
 package de.mxro.maven.tools;
 
+import static org.joox.JOOX.$;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -16,6 +18,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.xml.bind.Element;
+
+import org.joox.Match;
 
 import de.mxro.file.FileItem;
 import de.mxro.file.Jre.FilesJre;
@@ -282,9 +288,13 @@ public class MavenProject {
             throw new IllegalArgumentException("Specified directory does not contain a pom.xml file: " + projectDir);
         }
 
-        final String oldText = pom.getText();
+        final String document = pom.getText();
 
-        final String newText =
+        final Match children = $(document).find("dependencies").find("dependency").children();
+
+        for (final Element e : children) {
+
+        }
 
         pom.setText(newText);
 
