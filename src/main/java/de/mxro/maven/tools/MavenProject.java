@@ -298,6 +298,18 @@ public class MavenProject {
 
             if (groupId.equals(oldDependency.groupId()) && artifactId.equals(oldDependency.artifactId())) {
 
+                if (newDependency.version() != null) {
+                    $(e).filter("version").content(newDependency.version());
+                }
+
+                if (newDependency.groupId() != null) {
+                    $(e).filter("groupId").content(newDependency.groupId());
+                }
+
+                if (newDependency.artifactId() != null) {
+                    $(e).filter("artifactId").content(newDependency.artifactId());
+                }
+
             }
 
         }
