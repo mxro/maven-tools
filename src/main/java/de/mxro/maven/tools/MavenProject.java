@@ -26,6 +26,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.joox.JOOX;
 import org.joox.Match;
 import org.w3c.dom.Document;
 
@@ -296,7 +297,7 @@ public class MavenProject {
 
         final String text = pom.getText();
 
-        final Document document = $(text).document();
+        final Document document = $(JOOX.builder().parse(new File(pom.getPath()))).document();
 
         final Match baseMatch = $(document);
         final Match children = baseMatch.find("dependencies").child("dependency").children();
