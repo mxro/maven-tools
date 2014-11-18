@@ -1,30 +1,35 @@
 package de.mxro.maven.tools.tests
 
 import de.mxro.file.Jre.FilesJre
+import de.mxro.maven.tools.Dependency
+import de.mxro.maven.tools.MavenProject
+import de.oehme.xtend.junit.JUnit
+import java.io.File
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 
+@JUnit
 class TestThatDependenciesCanBeReplaced {
-	
-	
+
 	@Rule
 	TemporaryFolder tempFolder = new TemporaryFolder();
-	
+
 	def test() {
-		
+
 		val root = FilesJre.wrap(tempFolder.newFolder("test"))
-		
-		
+
 		val pom = root.createFile("pom.xml")
-		
+
 		pom.text = examplePom
-		
-		
-		
-		
+
+		MavenProject.replaceDependency(new File(root.path), Dependency.define("junit", "junit", null),
+			Dependency.define("junit", "junit", "4.11"))
+
+		pom.text.contains("<version>4.7</version>") => false
+		pom.text.contains("<version>4.11</version>") => true
+
 	}
-	
-	
+
 	val examplePom = '''
 	
 	<?xml version="1.0" encoding="UTF-8"?>
@@ -415,5 +420,5 @@ class TestThatDependenciesCanBeReplaced {
 </project>
 	
 	'''
-	
+
 }

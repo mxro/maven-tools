@@ -2,26 +2,43 @@ package de.mxro.maven.tools.tests;
 
 import de.mxro.file.FileItem;
 import de.mxro.file.Jre.FilesJre;
+import de.mxro.maven.tools.Dependency;
+import de.mxro.maven.tools.MavenProject;
+import de.oehme.xtend.junit.JUnit;
 import java.io.File;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
+import org.hamcrest.Matcher;
+import org.junit.Assert;
 import org.junit.Rule;
+import org.junit.Test;
+import org.junit.internal.ArrayComparisonFailure;
 import org.junit.rules.TemporaryFolder;
 
+@JUnit
 @SuppressWarnings("all")
 public class TestThatDependenciesCanBeReplaced {
   @Rule
-  private TemporaryFolder tempFolder = new TemporaryFolder();
+  public TemporaryFolder tempFolder = new TemporaryFolder();
   
-  public FileItem test() {
-    FileItem _xblockexpression = null;
-    {
-      File _newFolder = this.tempFolder.newFolder("test");
-      final FileItem root = FilesJre.wrap(_newFolder);
-      final FileItem pom = root.createFile("pom.xml");
-      _xblockexpression = pom.setText(this.examplePom);
-    }
-    return _xblockexpression;
+  @Test
+  public void test() {
+    File _newFolder = this.tempFolder.newFolder("test");
+    final FileItem root = FilesJre.wrap(_newFolder);
+    final FileItem pom = root.createFile("pom.xml");
+    pom.setText(this.examplePom);
+    String _path = root.getPath();
+    File _file = new File(_path);
+    Dependency _define = Dependency.define("junit", "junit", null);
+    Dependency _define_1 = Dependency.define("junit", "junit", "4.11");
+    MavenProject.replaceDependency(_file, _define, _define_1);
+    String _text = pom.getText();
+    boolean _contains = _text.contains("<version>4.7</version>");
+    TestThatDependenciesCanBeReplaced.<Boolean, Boolean>operator_doubleArrow(Boolean.valueOf(_contains), Boolean.valueOf(false));
+    String _text_1 = pom.getText();
+    boolean _contains_1 = _text_1.contains("<version>4.11</version>");
+    TestThatDependenciesCanBeReplaced.<Boolean, Boolean>operator_doubleArrow(Boolean.valueOf(_contains_1), Boolean.valueOf(true));
   }
   
   private final String examplePom = new Function0<String>() {
@@ -1094,4 +1111,173 @@ public class TestThatDependenciesCanBeReplaced {
       return _builder.toString();
     }
   }.apply();
+  
+  private static void assertArrayEquals(final Object[] expecteds, final Object[] actuals) {
+    Assert.assertArrayEquals(expecteds, actuals);
+  }
+  
+  private static void assertArrayEquals(final byte[] expecteds, final byte[] actuals) {
+    Assert.assertArrayEquals(expecteds, actuals);
+  }
+  
+  private static void assertArrayEquals(final char[] expecteds, final char[] actuals) {
+    Assert.assertArrayEquals(expecteds, actuals);
+  }
+  
+  private static void assertArrayEquals(final short[] expecteds, final short[] actuals) {
+    Assert.assertArrayEquals(expecteds, actuals);
+  }
+  
+  private static void assertArrayEquals(final int[] expecteds, final int[] actuals) {
+    Assert.assertArrayEquals(expecteds, actuals);
+  }
+  
+  private static void assertArrayEquals(final long[] expecteds, final long[] actuals) {
+    Assert.assertArrayEquals(expecteds, actuals);
+  }
+  
+  private static void assertArrayEquals(final String message, final Object[] expecteds, final Object[] actuals) throws ArrayComparisonFailure {
+    Assert.assertArrayEquals(message, expecteds, actuals);
+  }
+  
+  private static void assertArrayEquals(final String message, final byte[] expecteds, final byte[] actuals) throws ArrayComparisonFailure {
+    Assert.assertArrayEquals(message, expecteds, actuals);
+  }
+  
+  private static void assertArrayEquals(final String message, final char[] expecteds, final char[] actuals) throws ArrayComparisonFailure {
+    Assert.assertArrayEquals(message, expecteds, actuals);
+  }
+  
+  private static void assertArrayEquals(final String message, final short[] expecteds, final short[] actuals) throws ArrayComparisonFailure {
+    Assert.assertArrayEquals(message, expecteds, actuals);
+  }
+  
+  private static void assertArrayEquals(final String message, final int[] expecteds, final int[] actuals) throws ArrayComparisonFailure {
+    Assert.assertArrayEquals(message, expecteds, actuals);
+  }
+  
+  private static void assertArrayEquals(final String message, final long[] expecteds, final long[] actuals) throws ArrayComparisonFailure {
+    Assert.assertArrayEquals(message, expecteds, actuals);
+  }
+  
+  private static void assertArrayEquals(final double[] expecteds, final double[] actuals, final double delta) {
+    Assert.assertArrayEquals(expecteds, actuals, delta);
+  }
+  
+  private static void assertArrayEquals(final float[] expecteds, final float[] actuals, final float delta) {
+    Assert.assertArrayEquals(expecteds, actuals, delta);
+  }
+  
+  private static void assertArrayEquals(final String message, final double[] expecteds, final double[] actuals, final double delta) throws ArrayComparisonFailure {
+    Assert.assertArrayEquals(message, expecteds, actuals, delta);
+  }
+  
+  private static void assertArrayEquals(final String message, final float[] expecteds, final float[] actuals, final float delta) throws ArrayComparisonFailure {
+    Assert.assertArrayEquals(message, expecteds, actuals, delta);
+  }
+  
+  private static void assertEquals(final Object expected, final Object actual) {
+    Assert.assertEquals(expected, actual);
+  }
+  
+  private static void assertEquals(final long expected, final long actual) {
+    Assert.assertEquals(expected, actual);
+  }
+  
+  private static void assertEquals(final String arg0, final Object arg1, final Object arg2) {
+    Assert.assertEquals(arg0, arg1, arg2);
+  }
+  
+  private static void assertEquals(final String message, final long expected, final long actual) {
+    Assert.assertEquals(message, expected, actual);
+  }
+  
+  private static void assertEquals(final double expected, final double actual, final double delta) {
+    Assert.assertEquals(expected, actual, delta);
+  }
+  
+  private static void assertEquals(final String message, final double expected, final double actual, final double delta) {
+    Assert.assertEquals(message, expected, actual, delta);
+  }
+  
+  private static void assertFalse(final boolean condition) {
+    Assert.assertFalse(condition);
+  }
+  
+  private static void assertFalse(final String message, final boolean condition) {
+    Assert.assertFalse(message, condition);
+  }
+  
+  private static void assertNotNull(final Object object) {
+    Assert.assertNotNull(object);
+  }
+  
+  private static void assertNotNull(final String message, final Object object) {
+    Assert.assertNotNull(message, object);
+  }
+  
+  private static void assertNotSame(final Object unexpected, final Object actual) {
+    Assert.assertNotSame(unexpected, actual);
+  }
+  
+  private static void assertNotSame(final String message, final Object unexpected, final Object actual) {
+    Assert.assertNotSame(message, unexpected, actual);
+  }
+  
+  private static void assertNull(final Object object) {
+    Assert.assertNull(object);
+  }
+  
+  private static void assertNull(final String message, final Object object) {
+    Assert.assertNull(message, object);
+  }
+  
+  private static void assertSame(final Object expected, final Object actual) {
+    Assert.assertSame(expected, actual);
+  }
+  
+  private static void assertSame(final String message, final Object expected, final Object actual) {
+    Assert.assertSame(message, expected, actual);
+  }
+  
+  private static <T extends Object> void assertThat(final T actual, final Matcher<T> matcher) {
+    Assert.<T>assertThat(actual, matcher);
+  }
+  
+  private static <T extends Object> void assertThat(final String arg0, final T arg1, final Matcher<T> arg2) {
+    Assert.<T>assertThat(arg0, arg1, arg2);
+  }
+  
+  private static void assertTrue(final boolean condition) {
+    Assert.assertTrue(condition);
+  }
+  
+  private static void assertTrue(final String message, final boolean condition) {
+    Assert.assertTrue(message, condition);
+  }
+  
+  private static void fail() {
+    Assert.fail();
+  }
+  
+  private static void fail(final String message) {
+    Assert.fail(message);
+  }
+  
+  private static <T extends Object, U extends T> void operator_doubleArrow(final T actual, final U expected) {
+    Assert.assertEquals(expected, actual);
+  }
+  
+  private static <T extends Exception> void isThrownBy(final Class<T> expected, final Procedure0 block) {
+    try {
+    	block.apply();
+    	Assert.fail("Expected a " + expected.getName());
+    } catch (Exception e) {
+    	Class<?> actual = e.getClass();
+    	Assert.assertTrue(
+    		"Expected a " + expected.getName() + " but got " + actual.getName(), 
+    		expected.isAssignableFrom(actual)
+    	);
+    }
+  }
 }
