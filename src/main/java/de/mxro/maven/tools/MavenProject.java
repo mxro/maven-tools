@@ -296,20 +296,28 @@ public class MavenProject {
             final String artifactId = $(e).filter("artifactId").content();
             final String version = $(e).filter("version").content();
 
-            if (groupId.equals(oldDependency.groupId()) && artifactId.equals(oldDependency.artifactId())) {
+            if (oldDependency.version() != null && !oldDependency.version().equals(version)) {
+                continue;
+            }
 
-                if (newDependency.version() != null) {
-                    $(e).filter("version").content(newDependency.version());
-                }
+            if (oldDependency.groupId() != null && !oldDependency.groupId().equals(groupId)) {
+                continue;
+            }
 
-                if (newDependency.groupId() != null) {
-                    $(e).filter("groupId").content(newDependency.groupId());
-                }
+            if (oldDependency.artifactId() != null && !oldDependency.artifactId().equals(artifactId)) {
+                continue;
+            }
 
-                if (newDependency.artifactId() != null) {
-                    $(e).filter("artifactId").content(newDependency.artifactId());
-                }
+            if (newDependency.version() != null) {
+                $(e).filter("version").content(newDependency.version());
+            }
 
+            if (newDependency.groupId() != null) {
+                $(e).filter("groupId").content(newDependency.groupId());
+            }
+
+            if (newDependency.artifactId() != null) {
+                $(e).filter("artifactId").content(newDependency.artifactId());
             }
 
         }
