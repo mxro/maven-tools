@@ -30,7 +30,13 @@
 			<artifactId>java-start-process</artifactId>
 			<version>[0.0.1,)</version>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>de.mxro</groupId>
+			<artifactId>java-file-utils</artifactId>
+			<version>[0.0.1,)</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
