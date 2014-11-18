@@ -353,9 +353,9 @@ public class MavenProject {
 
                 final String output = writer.getBuffer().toString();
 
-                System.out.println("Defining new pom\n");
-                System.out.println(output);
-                // pom.setText(output);
+                // System.out.println("Defining new pom\n");
+                // System.out.println(output);
+                pom.setText(output);
             } catch (final TransformerException e1) {
                 throw new RuntimeException(e1);
             }
