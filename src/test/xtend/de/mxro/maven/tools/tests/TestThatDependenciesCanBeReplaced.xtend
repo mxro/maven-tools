@@ -25,6 +25,8 @@ class TestThatDependenciesCanBeReplaced {
 		MavenProject.replaceDependency(new File(root.path), Dependency.define("junit", "junit", null),
 			Dependency.define("junit", "junit", "4.11"))
 
+		println(pom.text)
+
 		pom.text.contains("<version>4.7</version>") => false
 		pom.text.contains("<version>4.11</version>") => true
 
