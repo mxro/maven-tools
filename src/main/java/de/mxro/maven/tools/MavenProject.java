@@ -286,7 +286,14 @@ public class MavenProject {
         });
     }
 
-    public static void replaceDependency(final File projectDir, final Dependency oldDependency,
+    /**
+     * 
+     * @param projectDir
+     * @param oldDependency
+     * @param newDependency
+     * @return
+     */
+    public static boolean replaceDependency(final File projectDir, final Dependency oldDependency,
             final Dependency newDependency) {
 
         final FileItem pom = FilesJre.wrap(projectDir).get("pom.xml");
@@ -360,6 +367,8 @@ public class MavenProject {
                 throw new RuntimeException(e1);
             }
         }
+
+        return changed;
 
     }
 }
