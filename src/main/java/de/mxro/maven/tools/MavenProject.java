@@ -322,7 +322,7 @@ public class MavenProject {
         final Match project = root.find("project");
 
         if (project.size() != 1) {
-            throw new RuntimeException("Illegal pom [" + pom + "]");
+            throw new RuntimeException("Illegal pom [" + pom + "]. Element project cannot be found.");
         }
 
         final Match dependencies = project.child("dependencies");
