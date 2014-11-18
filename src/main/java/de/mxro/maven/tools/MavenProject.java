@@ -292,9 +292,9 @@ public class MavenProject {
 
         for (final org.w3c.dom.Element e : children) {
 
-            final String groupId = $(e).filter("groupId").content();
-            final String artifactId = $(e).filter("artifactId").content();
-            final String version = $(e).filter("version").content();
+            final String groupId = $(e).child("groupId").content();
+            final String artifactId = $(e).child("artifactId").content();
+            final String version = $(e).child("version").content();
 
             if (oldDependency.version() != null && !oldDependency.version().equals(version)) {
                 continue;
@@ -309,15 +309,15 @@ public class MavenProject {
             }
 
             if (newDependency.version() != null) {
-                $(e).filter("version").content(newDependency.version());
+                $(e).child("version").content(newDependency.version());
             }
 
             if (newDependency.groupId() != null) {
-                $(e).filter("groupId").content(newDependency.groupId());
+                $(e).child("groupId").content(newDependency.groupId());
             }
 
             if (newDependency.artifactId() != null) {
-                $(e).filter("artifactId").content(newDependency.artifactId());
+                $(e).child("artifactId").content(newDependency.artifactId());
             }
 
         }
