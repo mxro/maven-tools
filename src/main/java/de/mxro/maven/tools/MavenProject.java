@@ -290,7 +290,11 @@ public class MavenProject {
 
         final Match children = $(document).find("dependencies").find("dependency").children();
 
-        for (final org.w3c.dom.Element element : children) {
+        for (final org.w3c.dom.Element e : children) {
+
+            final String groupId = $(e).filter("groupId").content();
+            final String artifactId = $(e).filter("artifactId").content();
+            final String version = $(e).filter("version").content();
 
         }
 
