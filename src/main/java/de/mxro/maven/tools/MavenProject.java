@@ -296,6 +296,10 @@ public class MavenProject {
             final String artifactId = $(e).filter("artifactId").content();
             final String version = $(e).filter("version").content();
 
+            if (groupId.equals(oldDependency.groupId()) && artifactId.equals(oldDependency.artifactId())) {
+
+            }
+
         }
 
     }
