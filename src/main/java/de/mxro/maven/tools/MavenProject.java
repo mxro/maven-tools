@@ -325,7 +325,6 @@ public class MavenProject {
                 continue;
             }
 
-            System.out.println("do it");
             if (newDependency.version() != null) {
                 $(e).child("version").content(newDependency.version());
             }
@@ -351,7 +350,9 @@ public class MavenProject {
 
             final String output = writer.getBuffer().toString();
 
-            pom.setText(output);
+            System.out.println("Defining new pom\n");
+            System.out.println(output);
+            // pom.setText(output);
         } catch (final TransformerException e1) {
             throw new RuntimeException(e1);
         }
