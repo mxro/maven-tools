@@ -318,8 +318,14 @@ public class MavenProject {
             throw new RuntimeException(e2);
         }
 
-        final Match baseMatch = $(document);
-        final Match children = baseMatch.find("project").child("dependencies");
+        final Match root = $(document);
+        final Match project = root.child("project");
+
+        if (project.size() != 0) {
+            throw new RuntimeException("Illegal pom [" + pom + "]");
+        }
+
+        final Match children = root.find("project").child("dependencies");
 
         System.out.println(children);
 
