@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -334,16 +333,21 @@ public class MavenProject {
 
         }
 
-        final TransformerFactory tf = TransformerFactory.newInstance();
-        final Transformer transformer = tf.newTransformer();
-        // transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        final StringWriter writer = new StringWriter();
         try {
+            final TransformerFactory tf = TransformerFactory.newInstance();
+            final Transformer transformer = tf.newTransformer();
+            // transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
+            // "yes");
+            final StringWriter writer = new StringWriter();
+
             transformer.transform(new DOMSource(document), new StreamResult(writer));
+
+            final String output = writer.getBuffer().toString();
+
+            pom.setText(output);
         } catch (final TransformerException e1) {
-            throw new RuntimeException(e1)
+            throw new RuntimeException(e1);
         }
-        final String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
 
     }
 }
