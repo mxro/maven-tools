@@ -297,7 +297,12 @@ public class MavenProject {
 
         final String text = pom.getText();
 
-        final Document document = $(JOOX.builder().parse(new File(pom.getPath()))).document();
+        Document document;
+        try {
+            document = $(JOOX.builder().parse(new File(pom.getPath()))).document();
+        } catch (final Exception e2) {
+            throw new RuntimeException(e2);
+        }
 
         final Match baseMatch = $(document);
         final Match children = baseMatch.find("dependencies").child("dependency").children();

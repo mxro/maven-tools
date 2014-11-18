@@ -44,9 +44,6 @@ public class TestThatDependenciesCanBeReplaced {
   private final String examplePom = new Function0<String>() {
     public String apply() {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("\t");
-      _builder.newLine();
-      _builder.append("\t");
       _builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
       _builder.newLine();
       _builder.append("<!-- Template: Source + GWT + in workspace dependencies 27.11.2010 -->");
