@@ -19,8 +19,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.xml.bind.Element;
-
 import org.joox.Match;
 
 import de.mxro.file.FileItem;
@@ -292,11 +290,9 @@ public class MavenProject {
 
         final Match children = $(document).find("dependencies").find("dependency").children();
 
-        for (final Element e : children) {
+        for (final org.w3c.dom.Element element : children) {
 
         }
-
-        pom.setText(newText);
 
     }
 
