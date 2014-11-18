@@ -319,7 +319,9 @@ public class MavenProject {
         }
 
         final Match baseMatch = $(document);
-        final Match children = baseMatch.find("dependencies").child("dependency");
+        final Match children = baseMatch.find("dependencies").children("dependency");
+
+        System.out.println(children);
 
         boolean changed = false;
         for (final org.w3c.dom.Element e : children) {
