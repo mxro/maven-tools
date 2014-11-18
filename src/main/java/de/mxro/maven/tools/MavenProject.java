@@ -282,6 +282,12 @@ public class MavenProject {
             throw new IllegalArgumentException("Specified directory does not contain a pom.xml file: " + projectDir);
         }
 
+        final String oldText = pom.getText();
+
+        final String newText =
+
+        pom.setText(newText);
+
     }
 
 }
