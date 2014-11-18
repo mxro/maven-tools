@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.mxro.file.FileItem;
+import de.mxro.file.Jre.FilesJre;
 import de.mxro.javafileutils.Collect;
 import de.mxro.javafileutils.Collect.LeafCheck;
 import de.mxro.process.Spawn;
@@ -269,6 +271,17 @@ public class MavenProject {
             }
 
         });
+    }
+
+    public static void replaceDependency(final File projectDir, final Dependency oldDependency,
+            final Dependency newDependency) {
+
+        final FileItem pom = FilesJre.wrap(projectDir).get("pom.xml");
+
+        if (!pom.exists()) {
+            throw new IllegalArgumentException("Specified directory does not contain a pom.xml file: " + projectDir);
+        }
+
     }
 
 }
