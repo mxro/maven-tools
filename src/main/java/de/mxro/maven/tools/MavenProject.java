@@ -319,7 +319,7 @@ public class MavenProject {
         }
 
         final Match baseMatch = $(document);
-        final Match children = baseMatch.find("dependencies").children("dependency");
+        final Match children = baseMatch.child("project").child("dependencies").children("dependency");
 
         System.out.println(children);
 
