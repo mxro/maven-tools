@@ -2,6 +2,7 @@ package de.mxro.maven.tools;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.mxro.javafileutils.Collect;
+import de.mxro.javafileutils.Collect.LeafCheck;
 import de.mxro.process.Spawn;
 
 /**
@@ -246,4 +249,26 @@ public class MavenProject {
         }
         throw new RuntimeException("No pom.xml found in project dir " + projectDir);
     }
+
+    public static List<File> getProjects(final File rootDir) {
+        return Collect.getLeafDirectoriesRecursively(rootDir, new LeafCheck() {
+
+            @Override
+            public boolean isLeaf(final File f) {
+                if (!f.isDirectory()) {
+                    return false;
+                }
+
+                return f.listFiles(new FileFilter() {
+
+                    @Override
+                    public boolean accept(final File pathname) {
+                        return pathname.getName().equals("pom.xml");
+                    }
+                }).length > 0;
+            }
+
+        });
+    }
+
 }
