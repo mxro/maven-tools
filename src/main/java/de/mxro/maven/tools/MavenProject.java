@@ -8,6 +8,7 @@ import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -19,7 +20,15 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.joox.Match;
+import org.w3c.dom.Document;
 
 import de.mxro.file.FileItem;
 import de.mxro.file.Jre.FilesJre;
@@ -286,9 +295,12 @@ public class MavenProject {
             throw new IllegalArgumentException("Specified directory does not contain a pom.xml file: " + projectDir);
         }
 
-        final String document = pom.getText();
+        final String text = pom.getText();
 
-        final Match children = $(document).find("dependencies").find("dependency").children();
+        final Document document = $(text).document();
+
+        final Match baseMatch = $(document);
+        final Match children = baseMatch.find("dependencies").child("dependency").children();
 
         for (final org.w3c.dom.Element e : children) {
 
@@ -322,6 +334,16 @@ public class MavenProject {
 
         }
 
-    }
+        final TransformerFactory tf = TransformerFactory.newInstance();
+        final Transformer transformer = tf.newTransformer();
+        // transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        final StringWriter writer = new StringWriter();
+        try {
+            transformer.transform(new DOMSource(document), new StreamResult(writer));
+        } catch (final TransformerException e1) {
+            throw new RuntimeException(e1)
+        }
+        final String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
 
+    }
 }
