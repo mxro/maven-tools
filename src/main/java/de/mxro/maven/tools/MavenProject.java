@@ -305,9 +305,8 @@ public class MavenProject {
         }
 
         final Match baseMatch = $(document);
-        final Match children = baseMatch.find("dependencies").child("dependency").children();
+        final Match children = baseMatch.find("dependencies").child("dependency");
 
-        System.out.println("found " + children);
         for (final org.w3c.dom.Element e : children) {
 
             final String groupId = $(e).child("groupId").content();

@@ -8,7 +8,6 @@ import de.oehme.xtend.junit.JUnit;
 import java.io.File;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
@@ -35,12 +34,10 @@ public class TestThatDependenciesCanBeReplaced {
     Dependency _define_1 = Dependency.define("junit", "junit", "4.11");
     MavenProject.replaceDependency(_file, _define, _define_1);
     String _text = pom.getText();
-    InputOutput.<String>println(_text);
-    String _text_1 = pom.getText();
-    boolean _contains = _text_1.contains("<version>4.7</version>");
+    boolean _contains = _text.contains("<version>4.7</version>");
     TestThatDependenciesCanBeReplaced.<Boolean, Boolean>operator_doubleArrow(Boolean.valueOf(_contains), Boolean.valueOf(false));
-    String _text_2 = pom.getText();
-    boolean _contains_1 = _text_2.contains("<version>4.11</version>");
+    String _text_1 = pom.getText();
+    boolean _contains_1 = _text_1.contains("<version>4.11</version>");
     TestThatDependenciesCanBeReplaced.<Boolean, Boolean>operator_doubleArrow(Boolean.valueOf(_contains_1), Boolean.valueOf(true));
   }
   
