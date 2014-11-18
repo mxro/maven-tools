@@ -30,6 +30,8 @@ class TestThatDependenciesCanBeReplaced {
 
 	}
 
+	
+
 	val examplePom = '''<?xml version="1.0" encoding="UTF-8"?>
 <!-- Template: Source + GWT + in workspace dependencies 27.11.2010 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
