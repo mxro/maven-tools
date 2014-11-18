@@ -288,6 +288,15 @@ public class MavenProject {
 
     /**
      * 
+     * <p>
+     * Replace a dependency for a maven project.
+     * <p>
+     * If properties of the provided oldDependency are <code>null</code>, any
+     * dependency of the project will be matched.
+     * <p>
+     * If properties of newDependency are <code>null</code>, the specific
+     * property will not be replaced.
+     * 
      * @param projectDir
      * @param oldDependency
      * @param newDependency
