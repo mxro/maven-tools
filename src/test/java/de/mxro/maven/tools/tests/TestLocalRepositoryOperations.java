@@ -16,8 +16,6 @@ public class TestLocalRepositoryOperations {
         final File file = MavenLocalRepository.getFolderInLocalRepository(Dependency.define("com.appjangle.java",
                 "appjangle-jre", "0.3.6"), new File("/data/databases/localMavenRepository/"));
 
-        System.out.println(file);
-
         Assert.assertEquals("/data/databases/localMavenRepository/com/appjangle/java/appjangle-jre/0.3.6",
                 file.getAbsolutePath());
 
