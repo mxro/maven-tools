@@ -1,7 +1,6 @@
 /**
+ * Basic tests.
  * 
- */
-/**
  * @author <a href="http://www.mxro.de">Max Rohde</a>
  *
  */
