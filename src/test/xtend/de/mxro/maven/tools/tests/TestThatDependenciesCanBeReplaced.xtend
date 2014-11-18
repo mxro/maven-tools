@@ -1,8 +1,26 @@
 package de.mxro.maven.tools.tests
 
+import de.mxro.file.Jre.FilesJre
+import org.junit.Rule
+import org.junit.rules.TemporaryFolder
+
 class TestThatDependenciesCanBeReplaced {
 	
+	
+	@Rule
+	TemporaryFolder tempFolder = new TemporaryFolder();
+	
 	def test() {
+		
+		val root = FilesJre.wrap(tempFolder.newFolder("test"))
+		
+		
+		val pom = root.createFile("pom.xml")
+		
+		pom.text = examplePom
+		
+		
+		
 		
 	}
 	

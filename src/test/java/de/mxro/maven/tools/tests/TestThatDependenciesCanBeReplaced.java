@@ -1,12 +1,27 @@
 package de.mxro.maven.tools.tests;
 
+import de.mxro.file.FileItem;
+import de.mxro.file.Jre.FilesJre;
+import java.io.File;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
+import org.junit.Rule;
+import org.junit.rules.TemporaryFolder;
 
 @SuppressWarnings("all")
 public class TestThatDependenciesCanBeReplaced {
-  public Object test() {
-    return null;
+  @Rule
+  private TemporaryFolder tempFolder = new TemporaryFolder();
+  
+  public FileItem test() {
+    FileItem _xblockexpression = null;
+    {
+      File _newFolder = this.tempFolder.newFolder("test");
+      final FileItem root = FilesJre.wrap(_newFolder);
+      final FileItem pom = root.createFile("pom.xml");
+      _xblockexpression = pom.setText(this.examplePom);
+    }
+    return _xblockexpression;
   }
   
   private final String examplePom = new Function0<String>() {
