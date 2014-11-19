@@ -327,9 +327,13 @@ public class MavenProject {
 
         final Match dependencies = project.child("dependencies");
 
-        if (dependencies.size() != 1) {
-            throw new RuntimeException("Illegal pom [" + pom + "]");
+        if (dependencies.size() == 0) {
+            return false;
         }
+
+        // if (dependencies.size() != 1) {
+        // throw new RuntimeException("Illegal pom [" + pom + "]");
+        // }
 
         // System.out.println(dependencies);
 
