@@ -319,7 +319,7 @@ public class MavenProject {
         }
 
         final Match root = $(document);
-        final Match project = root.find("project");
+        final Match project = root.first();
 
         if (project.size() != 1) {
             throw new RuntimeException("Illegal pom [" + pom + "]. Element project cannot be found.");
