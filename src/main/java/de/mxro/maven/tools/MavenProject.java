@@ -331,11 +331,11 @@ public class MavenProject {
             throw new RuntimeException("Illegal pom [" + pom + "]");
         }
 
-        System.out.println(dependencies);
+        // System.out.println(dependencies);
 
         final Match children = dependencies.children("dependency");
 
-        System.out.println(children);
+        // System.out.println(children);
 
         boolean changed = false;
         for (final org.w3c.dom.Element e : children) {
