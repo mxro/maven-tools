@@ -77,6 +77,12 @@ public class MavenProject {
         return orderDirectoriesByBuildOrder(directories, buildOrder, false);
     }
 
+    /**
+     * Checks if a maven built was successful.
+     * 
+     * @param mavenOutput
+     * @return
+     */
     public static boolean buildSuccessful(final String mavenOutput) {
         if (mavenOutput.contains("BUILD FAILURE") || !mavenOutput.contains("BUILD SUCCESS")) {
             return false;
