@@ -12,12 +12,35 @@
 
 To perform various operations on Maven Projects (folders which contain a pom.xml file), explore the MavenProject class:
 
-MavenProject JavaDoc
+[MavenProject JavaDoc](http://modules.appjangle.com/maven-tools/latest/apidocs/de/mxro/maven/tools/MavenProject.html)
 
 MavenProject.java Source
 
+### Maven Local Repository
 
+To perform operations on the local Maven repository, use the methods provided in the MavenLocalRepository class:
 
+[MavenLocalRepository JavaDoc](http://modules.appjangle.com/maven-tools/latest/apidocs/de/mxro/maven/tools/MavenLocalRepository.html)
+
+MavenLocalRepository.java Source
+
+### Maven Remote Repositories
+
+To work with remote Maven repositories, use methods provided in the MavenRemoteRepository class:
+
+[MavenRemoteRepository JavaDoc](http://modules.appjangle.com/maven-tools/latest/apidocs/de/mxro/maven/tools/MavenRemoteRepository.html)
+
+MavenRemoteRepository.java Source
+
+### Upload Artifacts to Repository using RSync
+
+For uploading artifacts to a remote repository using RSync, use the class MavenRsync.class:
+
+[MavenRsync JavaDoc](http://modules.appjangle.com/maven-tools/latest/apidocs/de/mxro/maven/tools/deploy/MavenRsync.html)
+
+MavenRsync.java Source
+
+You can define the required parameters for a deployment using the DeploymentParamtersBuilder (JavaDoc, Source).
 
 ## Maven Dependency
 
