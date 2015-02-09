@@ -137,89 +137,6 @@ public class MavenProject {
 
     }
 
-    private static void replaceVersion(final File pomFile, final String newVersion) {
-        try {
-            final List<String> lines = new ArrayList<String>();
-
-            final BufferedReader in = new BufferedReader(new FileReader(pomFile));
-            String line = in.readLine();
-            boolean found = false;
-            while (line != null) {
-
-                if (!found && line.contains("<version>")) {
-                    lines.add("    <version>" + newVersion + "</version>");
-                    found = true;
-                } else {
-                    lines.add(line);
-                }
-                line = in.readLine();
-            }
-            in.close();
-
-            final PrintWriter out = new PrintWriter(pomFile);
-            for (final String l : lines) {
-                out.println(l);
-            }
-            out.close();
-        } catch (final IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-    }
-
-    private static Dependency retrieveDependency(final File pomFile) {
-        try {
-            final byte[] pomBytes = Files.readAllBytes(FileSystems.getDefault().getPath(pomFile.getAbsolutePath()));
-
-            final String pom = new String(pomBytes, "UTF-8");
-
-            final String groupId;
-            final String artifactId;
-            final String version;
-            {
-                final Pattern pattern = Pattern.compile("<groupId>([^<]*)</groupId>");
-                final Matcher matcher = pattern.matcher(pom);
-                matcher.find();
-                groupId = matcher.group(1);
-            }
-
-            {
-                final Pattern pattern = Pattern.compile("<artifactId>([^<]*)</artifactId>");
-                final Matcher matcher = pattern.matcher(pom);
-                matcher.find();
-                artifactId = matcher.group(1);
-            }
-
-            {
-                final Pattern pattern = Pattern.compile("<version>([^<]*)</version>");
-                final Matcher matcher = pattern.matcher(pom);
-                matcher.find();
-                version = matcher.group(1);
-            }
-
-            return new Dependency() {
-
-                @Override
-                public String version() {
-                    return version;
-                }
-
-                @Override
-                public String groupId() {
-                    return groupId;
-                }
-
-                @Override
-                public String artifactId() {
-                    return artifactId;
-                }
-            };
-        } catch (final IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-    }
-
     public static String getVersion(final File projectDir) {
         for (final File file : projectDir.listFiles()) {
             if (file.getName().equals("pom.xml")) {
@@ -250,6 +167,12 @@ public class MavenProject {
         throw new RuntimeException("No pom.xml found in project dir " + projectDir);
     }
 
+    /**
+     * Collects all the Maven projects under the defined root directory.
+     * 
+     * @param rootDir
+     * @return
+     */
     public static List<File> getProjects(final File rootDir) {
         return Collect.getLeafDirectoriesRecursively(rootDir, new LeafCheck() {
 
@@ -418,6 +341,89 @@ public class MavenProject {
             res.addAll(unprocessed);
         }
         return res;
+
+    }
+
+    private static void replaceVersion(final File pomFile, final String newVersion) {
+        try {
+            final List<String> lines = new ArrayList<String>();
+
+            final BufferedReader in = new BufferedReader(new FileReader(pomFile));
+            String line = in.readLine();
+            boolean found = false;
+            while (line != null) {
+
+                if (!found && line.contains("<version>")) {
+                    lines.add("    <version>" + newVersion + "</version>");
+                    found = true;
+                } else {
+                    lines.add(line);
+                }
+                line = in.readLine();
+            }
+            in.close();
+
+            final PrintWriter out = new PrintWriter(pomFile);
+            for (final String l : lines) {
+                out.println(l);
+            }
+            out.close();
+        } catch (final IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
+    }
+
+    private static Dependency retrieveDependency(final File pomFile) {
+        try {
+            final byte[] pomBytes = Files.readAllBytes(FileSystems.getDefault().getPath(pomFile.getAbsolutePath()));
+
+            final String pom = new String(pomBytes, "UTF-8");
+
+            final String groupId;
+            final String artifactId;
+            final String version;
+            {
+                final Pattern pattern = Pattern.compile("<groupId>([^<]*)</groupId>");
+                final Matcher matcher = pattern.matcher(pom);
+                matcher.find();
+                groupId = matcher.group(1);
+            }
+
+            {
+                final Pattern pattern = Pattern.compile("<artifactId>([^<]*)</artifactId>");
+                final Matcher matcher = pattern.matcher(pom);
+                matcher.find();
+                artifactId = matcher.group(1);
+            }
+
+            {
+                final Pattern pattern = Pattern.compile("<version>([^<]*)</version>");
+                final Matcher matcher = pattern.matcher(pom);
+                matcher.find();
+                version = matcher.group(1);
+            }
+
+            return new Dependency() {
+
+                @Override
+                public String version() {
+                    return version;
+                }
+
+                @Override
+                public String groupId() {
+                    return groupId;
+                }
+
+                @Override
+                public String artifactId() {
+                    return artifactId;
+                }
+            };
+        } catch (final IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
     }
 }
