@@ -4,7 +4,7 @@
 
 [Maven Tools](https://github.com/mxro/maven-tools) is a collection of vanilla Java tools to work with Maven Projects and Repositories.
 
-**Why**: To provide a lightweight way to work with Maven projects and repositories.  
+**Why**: To provide a lightweight way to work with Maven projects and repositories.   
 
 ## Usage
 
