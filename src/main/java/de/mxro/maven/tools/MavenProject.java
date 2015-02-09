@@ -58,6 +58,15 @@ public class MavenProject {
         return false;
     }
 
+    /**
+     * Takes a list of Maven project directories (with a pom.xml file) and
+     * orders it in a way that dependent projects come before projects dependent
+     * on them.
+     * 
+     * @param directories
+     * @param buildOrder
+     * @return
+     */
     public static List<File> orderDirectoriesByBuildOrder(final List<File> directories,
             final List<Dependency> buildOrder) {
         return orderDirectoriesByBuildOrder(directories, buildOrder, true);
