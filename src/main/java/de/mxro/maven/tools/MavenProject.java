@@ -43,42 +43,12 @@ import de.mxro.process.Spawn;
  *
  */
 public class MavenProject {
-
-    private static List<File> orderDirectoriesByBuildOrder(final List<File> directories,
-            final List<Dependency> buildOrder, final boolean addOthers) {
-
-        final List<File> res = new ArrayList<File>(directories.size());
-        final List<File> unprocessed = new LinkedList<File>(directories);
-
-        final Map<String, Dependency> map = new HashMap<String, Dependency>();
-
-        for (final Dependency d : buildOrder) {
-            map.put(d.artifactId(), d);
-
-        }
-
-        for (final File f : directories) {
-
-            final Dependency match = map.get(f.getName());
-
-            if (match == null) {
-
-                continue;
-            }
-
-            unprocessed.remove(f);
-            res.add(f);
-
-        }
-
-        // System.out.println(unprocessed.size());
-        if (addOthers) {
-            res.addAll(unprocessed);
-        }
-        return res;
-
-    }
-
+    /**
+     * Checks if a directory contains a pom.xml file.
+     * 
+     * @param directory
+     * @return
+     */
     public static boolean isMavenProject(final File directory) {
         for (final File child : directory.listFiles()) {
             if (child.getName().equals("pom.xml")) {
@@ -398,6 +368,41 @@ public class MavenProject {
         }
 
         return changed;
+
+    }
+
+    private static List<File> orderDirectoriesByBuildOrder(final List<File> directories,
+            final List<Dependency> buildOrder, final boolean addOthers) {
+
+        final List<File> res = new ArrayList<File>(directories.size());
+        final List<File> unprocessed = new LinkedList<File>(directories);
+
+        final Map<String, Dependency> map = new HashMap<String, Dependency>();
+
+        for (final Dependency d : buildOrder) {
+            map.put(d.artifactId(), d);
+
+        }
+
+        for (final File f : directories) {
+
+            final Dependency match = map.get(f.getName());
+
+            if (match == null) {
+
+                continue;
+            }
+
+            unprocessed.remove(f);
+            res.add(f);
+
+        }
+
+        // System.out.println(unprocessed.size());
+        if (addOthers) {
+            res.addAll(unprocessed);
+        }
+        return res;
 
     }
 }
