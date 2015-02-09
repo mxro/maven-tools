@@ -54,7 +54,7 @@ You can define the required parameters for a deployment using the DeploymentPara
 </dependency>
 ```
 
-Find latest version [here](http://modules.appjangle.com/lightweight-java-metrics/latest/project-summary.html).
+Find latest version [here](http://modules.appjangle.com/maven-tools/latest/project-summary.html).
 
 Add repository if required:
 
