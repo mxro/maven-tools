@@ -14,7 +14,7 @@ To perform various operations on Maven Projects (folders which contain a pom.xml
 
 [MavenProject JavaDoc](http://modules.appjangle.com/maven-tools/latest/apidocs/de/mxro/maven/tools/MavenProject.html)
 
-MavenProject.java Source
+[MavenProject.java Source](http://modules.appjangle.com/maven-tools/latest/xref/de/mxro/maven/tools/MavenProject.html)
 
 ### Maven Local Repository
 
@@ -22,7 +22,7 @@ To perform operations on the local Maven repository, use the methods provided in
 
 [MavenLocalRepository JavaDoc](http://modules.appjangle.com/maven-tools/latest/apidocs/de/mxro/maven/tools/MavenLocalRepository.html)
 
-MavenLocalRepository.java Source
+[MavenLocalRepository.java Source](http://modules.appjangle.com/maven-tools/latest/xref/de/mxro/maven/tools/MavenLocalRepository.html)
 
 ### Maven Remote Repositories
 
@@ -30,7 +30,7 @@ To work with remote Maven repositories, use methods provided in the MavenRemoteR
 
 [MavenRemoteRepository JavaDoc](http://modules.appjangle.com/maven-tools/latest/apidocs/de/mxro/maven/tools/MavenRemoteRepository.html)
 
-MavenRemoteRepository.java Source
+[MavenRemoteRepository.java Source](http://modules.appjangle.com/maven-tools/latest/xref/de/mxro/maven/tools/MavenRemoteRepository.html)
 
 ### Upload Artifacts to Repository using RSync
 
@@ -38,9 +38,9 @@ For uploading artifacts to a remote repository using RSync, use the class MavenR
 
 [MavenRsync JavaDoc](http://modules.appjangle.com/maven-tools/latest/apidocs/de/mxro/maven/tools/deploy/MavenRsync.html)
 
-MavenRsync.java Source
+[MavenRsync.java Source](http://modules.appjangle.com/maven-tools/latest/xref/de/mxro/maven/tools/deploy/MavenRsync.html)
 
-You can define the required parameters for a deployment using the DeploymentParamtersBuilder ([JavaDoc](http://modules.appjangle.com/maven-tools/latest/apidocs/de/mxro/maven/tools/deploy/DeploymentParametersBuilder.html), Source).
+You can define the required parameters for a deployment using the DeploymentParamtersBuilder ([JavaDoc](http://modules.appjangle.com/maven-tools/latest/apidocs/de/mxro/maven/tools/deploy/DeploymentParametersBuilder.html), [Source](http://modules.appjangle.com/maven-tools/latest/xref/de/mxro/maven/tools/deploy/DeploymentParametersBuilder.html)).
 
 ## Maven Dependency
 
