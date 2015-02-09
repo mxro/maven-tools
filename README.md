@@ -40,7 +40,7 @@ For uploading artifacts to a remote repository using RSync, use the class MavenR
 
 MavenRsync.java Source
 
-You can define the required parameters for a deployment using the DeploymentParamtersBuilder (JavaDoc, Source).
+You can define the required parameters for a deployment using the DeploymentParamtersBuilder ([JavaDoc](http://modules.appjangle.com/maven-tools/latest/apidocs/de/mxro/maven/tools/deploy/DeploymentParametersBuilder.html), Source).
 
 ## Maven Dependency
 
