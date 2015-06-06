@@ -35,7 +35,7 @@ public class MavenRemoteRepository {
 
         final String path = repositoryUrl + dependency.groupId().replaceAll("\\.", "/") + "/" + dependency.artifactId()
                 + "/maven-metadata.xml";
-        final String output = Spawn.runBashCommand("wget " + path, destFolder.toFile());
+        final String output = Spawn.sh(destFolder.toFile(), "wget " + path);
 
         if (output.contains("ERROR 404") || output.contains("Not Found")) {
 

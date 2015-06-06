@@ -94,7 +94,7 @@ public class MavenProject {
     public static List<Dependency> dependencyBuildOrder(final File project) {
         final List<Dependency> res = new ArrayList<Dependency>(100);
 
-        final String dependencyOutput = Spawn.runBashCommand("mvn dependency:tree -o | tail -n 10000", project);
+        final String dependencyOutput = Spawn.sh(project, "mvn dependency:tree -o | tail -n 10000");
 
         final Pattern pattern = Pattern.compile("- ([^:]*):([^:]*):([^:]*):([^:]*):");
 

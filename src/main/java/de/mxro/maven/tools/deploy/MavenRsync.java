@@ -102,7 +102,7 @@ public class MavenRsync {
                     + remoteDeploymentPath;
             System.out.println(command);
 
-            System.out.println(Spawn.runBashCommand(command, deploymentDir.toFile()));
+            System.out.println(Spawn.sh(deploymentDir.toFile(), command));
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }
