@@ -1,11 +1,7 @@
 package de.mxro.maven.tools.tests;
 
-import de.mxro.file.FileItem;
-import de.mxro.file.Jre.FilesJre;
-import de.mxro.maven.tools.Dependency;
-import de.mxro.maven.tools.MavenProject;
-import de.oehme.xtend.junit.JUnit;
 import java.io.File;
+
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
@@ -15,6 +11,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.internal.ArrayComparisonFailure;
 import org.junit.rules.TemporaryFolder;
+
+import de.mxro.file.FileItem;
+import de.mxro.file.Jre.FilesJre;
+import de.mxro.maven.tools.Dependency;
+import de.mxro.maven.tools.MavenProject;
+import de.oehme.xtend.junit.JUnit;
 
 @JUnit
 @SuppressWarnings("all")
