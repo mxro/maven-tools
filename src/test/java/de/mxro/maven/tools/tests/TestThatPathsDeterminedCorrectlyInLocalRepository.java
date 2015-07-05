@@ -1,16 +1,14 @@
 package de.mxro.maven.tools.tests;
 
+import de.mxro.maven.tools.Dependency;
+import de.mxro.maven.tools.MavenLocalRepository;
+import de.oehme.xtend.junit.JUnit;
 import java.io.File;
-
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.internal.ArrayComparisonFailure;
-
-import de.mxro.maven.tools.Dependency;
-import de.mxro.maven.tools.MavenLocalRepository;
-import de.oehme.xtend.junit.JUnit;
 
 @JUnit
 @SuppressWarnings("all")
