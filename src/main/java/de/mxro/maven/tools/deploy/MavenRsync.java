@@ -52,16 +52,15 @@ public class MavenRsync {
 
             assert Files.exists(metadataFile);
 
-            WriteHashes.forFile(metadataFile);
+            // WriteHashes.forFile(metadataFile);
 
             final Path versionDir = deploymentDir.resolve(params.artifact().version());
             Files.createDirectory(versionDir);
 
             Path sourceJar = params.forcedSourceJar();
             if (sourceJar == null) {
-                final Path distributionJar = params.projectDir().resolve(
-                        "target/" + params.artifact().artifactId() + "-" + params.artifact().version()
-                                + "-distribution.jar");
+                final Path distributionJar = params.projectDir().resolve("target/" + params.artifact().artifactId()
+                        + "-" + params.artifact().version() + "-distribution.jar");
 
                 if (Files.exists(distributionJar)) {
                     sourceJar = distributionJar;
@@ -71,8 +70,8 @@ public class MavenRsync {
                 }
             }
 
-            final Path newJar = versionDir.resolve(params.artifact().artifactId() + "-" + params.artifact().version()
-                    + ".jar");
+            final Path newJar = versionDir
+                    .resolve(params.artifact().artifactId() + "-" + params.artifact().version() + ".jar");
 
             Files.copy(sourceJar, newJar);
 
@@ -84,8 +83,8 @@ public class MavenRsync {
 
             final String sourcePomText = new String(sourcePomBytes, "UTF-8");
 
-            final Path destPom = versionDir.resolve(params.artifact().artifactId() + "-" + params.artifact().version()
-                    + ".pom");
+            final Path destPom = versionDir
+                    .resolve(params.artifact().artifactId() + "-" + params.artifact().version() + ".pom");
 
             Files.write(destPom, sourcePomText.replaceAll("<!-- inject-provided-scope -->", "<scope>provided</scope>")
                     .getBytes("UTF-8"));
@@ -95,10 +94,7 @@ public class MavenRsync {
             final String rsyncConnectionPath = params.user() + "@" + params.server() + ":" + params.serverDir();
 
             final String command = "rsync -avz -e \"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null\" --progress "
-                    + deploymentDir.toFile().getAbsolutePath()
-                    + "/*"
-                    + " "
-                    + rsyncConnectionPath
+                    + deploymentDir.toFile().getAbsolutePath() + "/*" + " " + rsyncConnectionPath
                     + remoteDeploymentPath;
             System.out.println(command);
 

@@ -22,7 +22,7 @@ class TestGenerateHashes {
 		
 		WriteHashes.forFile(new File(pom.path).toPath)
 		
-		println(folder.get("pom.xml.md5").text)
+		//println(folder.get("pom.xml.md5").text)
 		
 	
 	}

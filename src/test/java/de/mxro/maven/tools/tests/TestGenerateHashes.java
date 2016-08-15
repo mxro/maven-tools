@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -29,9 +28,6 @@ public class TestGenerateHashes {
       File _file = new File(_path);
       Path _path_1 = _file.toPath();
       WriteHashes.forFile(_path_1);
-      FileItem _get = folder.get("pom.xml.md5");
-      String _text = _get.getText();
-      InputOutput.<String>println(_text);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
