@@ -19,13 +19,6 @@ public class WriteHashes {
     }
 
     public static void writeMd5(final Path baseFile) throws NoSuchAlgorithmException, IOException {
-
-        // final Path md5File =
-        // baseFile.getFileSystem().getPath(baseFile.toString() + ".md5");
-
-        // Files.write(md5File,
-        // getMd5ForFile(baseFile.toFile()).getBytes("UTF-8"));
-
         final FileInputStream fis = new FileInputStream(baseFile.toFile());
 
         final MessageDigest messageDigest = MessageDigest.getInstance("MD5");
@@ -41,12 +34,9 @@ public class WriteHashes {
 
         fis.close();
 
-        // final byte[] md5 = messageDigest.digest();
-
         final Path md5File = baseFile.getFileSystem().getPath(baseFile.toString() + ".md5");
 
         FilesJre.wrap(md5File.toFile()).setText(result);
-
     }
 
     public static void writeSh1(final Path baseFile) throws NoSuchAlgorithmException, IOException {
