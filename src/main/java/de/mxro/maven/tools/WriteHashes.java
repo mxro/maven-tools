@@ -18,7 +18,12 @@ public class WriteHashes {
 
         final Path md5File = baseFile.getFileSystem().getPath(baseFile.toString() + ".md5");
 
-        Files.write(md5File, md5);
+        final StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < md5.length; i++) {
+            sb.append(Integer.toString((md5[i] & 0xff) + 0x100, 16).substring(1));
+        }
+
+        Files.write(md5File, sb.toString().getBytes("UTF-8"));
 
     }
 
