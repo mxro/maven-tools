@@ -22,18 +22,20 @@ class TestGenerateHashes {
 		
 		WriteHashes.forFile(new File(pom.path).toPath)
 		
-		//println(folder.get("pom.xml.md5").text)
+		println(folder.get("pom.xml.md5").text)
 		
 	}
 	
 	val static POM_CONTENT = '''<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Template: Source 
-		+ GWT + in workspace dependencies 27.11.2010 --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		+ GWT + in workspace dependencies 27.11.2010 -->
+	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 		<groupId>org.javadelight</groupId>
 		<artifactId>delight-nashorn-sandbox</artifactId>
 		<version>0.0.6</version>
 		<description>A safe sandbox to execute JavaScript code from Nashorn.</description>
 		<url>https://github.com/javadelight/delight-nashorn-sandbox</url>
-		
+	
 		<properties>
 			<module.gwtVersion>2.5.1</module.gwtVersion>
 			<module.importedPackages>
@@ -74,7 +76,7 @@ class TestGenerateHashes {
 				<groupId>org.javadelight</groupId>
 				<artifactId>delight-async</artifactId>
 				<version>0.0.9</version>
-				
+	
 			</dependency>
 	
 		</dependencies>
@@ -95,28 +97,12 @@ class TestGenerateHashes {
 						<target>1.8</target>
 					</configuration>
 				</plugin>
-				
-				  <!-- <plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<version>2.4</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>attached</goal>
-							</goals>
-							<phase>package</phase>
-							<configuration>
-								<descriptors>
-									<descriptor>src/assemble/distribution.xml</descriptor>
-								</descriptors>
 	
-							
-							</configuration>
-						</execution>
-					</executions>
-				</plugin> -->
-				
+				<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-assembly-plugin</artifactId> 
+					<version>2.4</version> <executions> <execution> <goals> <goal>attached</goal> 
+					</goals> <phase>package</phase> <configuration> <descriptors> <descriptor>src/assemble/distribution.xml</descriptor> 
+					</descriptors> </configuration> </execution> </executions> </plugin> -->
+	
 	
 	
 				<!-- FOR BUNDLE MANAGEMENT -->
@@ -154,8 +140,8 @@ class TestGenerateHashes {
 							</goals>
 							<configuration>
 								<tasks>
-									<delete file="${basedir}/META-INF/MANIFEST.MF"/>
-									<copy file="target/classes/META-INF/MANIFEST.MF" tofile="${basedir}/META-INF/MANIFEST.MF"/>
+									<delete file="${basedir}/META-INF/MANIFEST.MF" />
+									<copy file="target/classes/META-INF/MANIFEST.MF" tofile="${basedir}/META-INF/MANIFEST.MF" />
 								</tasks>
 							</configuration>
 						</execution>
@@ -273,8 +259,6 @@ class TestGenerateHashes {
 	
 	
 	
-	
-	
 						</reportPlugins>
 					</configuration>
 				</plugin>
@@ -309,13 +293,10 @@ class TestGenerateHashes {
 					</excludes>
 				</resource>
 	
-	
-	
 			</resources>
 	
 	
 		</build>
-	
 	
 		<repositories>
 			<repository>
