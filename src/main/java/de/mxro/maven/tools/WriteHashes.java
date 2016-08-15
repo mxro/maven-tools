@@ -40,11 +40,14 @@ public class WriteHashes {
 
         Files.write(md5File, getMd5ForFile(baseFile.toFile()).getBytes("UTF-8"));
 
-        final byte[] md5 = MessageDigest.getInstance("MD5").digest(Files.readAllBytes(baseFile));
+        final MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+        messageDigest.reset();
+        messageDigest.update(Files.readAllBytes(baseFile), offset, len);
+        final byte[] md5 = messageDigest.digest();
 
         final Path md5File = baseFile.getFileSystem().getPath(baseFile.toString() + ".md5");
 
-        Files.write(md5File, hexString.toString().getBytes("UTF-8"));
+        Files.write(md5File, Hex.encode());
 
     }
 
