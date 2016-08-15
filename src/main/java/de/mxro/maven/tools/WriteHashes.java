@@ -23,7 +23,16 @@ public class WriteHashes {
             sb.append(Integer.toString((md5[i] & 0xff) + 0x100, 16).substring(1));
         }
 
-        Files.write(md5File, sb.toString().getBytes("UTF-8"));
+        final StringBuffer hexString = new StringBuffer();
+        for (int i = 0; i < md5.length; i++) {
+            final String hex = Integer.toHexString(0xff & md5[i]);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+
+        Files.write(md5File, hexString.toString().getBytes("UTF-8"));
 
     }
 
