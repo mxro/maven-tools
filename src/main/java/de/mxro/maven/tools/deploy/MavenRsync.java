@@ -53,7 +53,6 @@ public class MavenRsync {
             assert Files.exists(metadataFile);
 
             // WriteHashes.forFile(metadataFile);
-
             final Path versionDir = deploymentDir.resolve(params.artifact().version());
             Files.createDirectory(versionDir);
 
