@@ -68,7 +68,8 @@
 			</exclusions>
 			<scope>test</scope>
 		</dependency>
-
+		
+		<!--  TMP -->
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>

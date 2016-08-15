@@ -2,8 +2,11 @@ package de.mxro.maven.tools.tests;
 
 import de.mxro.file.FileItem;
 import de.mxro.file.Jre.FilesJre;
+import de.mxro.maven.tools.WriteHashes;
 import java.io.File;
+import java.nio.file.Path;
 import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,10 +19,18 @@ public class TestGenerateHashes {
   
   @Test
   public void test() {
-    File _newFolder = this.folder.newFolder("test");
-    final FileItem folder = FilesJre.wrap(_newFolder);
-    final FileItem pom = folder.createFile("pom.xml");
-    pom.setText(TestGenerateHashes.POM_CONTENT);
+    try {
+      File _newFolder = this.folder.newFolder("test");
+      final FileItem folder = FilesJre.wrap(_newFolder);
+      final FileItem pom = folder.createFile("pom.xml");
+      pom.setText(TestGenerateHashes.POM_CONTENT);
+      String _path = pom.getPath();
+      File _file = new File(_path);
+      Path _path_1 = _file.toPath();
+      WriteHashes.forFile(_path_1);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
   }
   
   private final static String POM_CONTENT = new Function0<String>() {

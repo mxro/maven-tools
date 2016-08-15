@@ -20,13 +20,11 @@ class TestGenerateHashes {
 		
 		pom.text = POM_CONTENT
 		
-		//WriteHashes.forFile(new File(pom.path).toPath)
+		WriteHashes.forFile(new File(pom.path).toPath)
 		
 		//println(folder.get("pom.xml.md5").text)
 		
-	
 	}
-	
 	
 	val static POM_CONTENT = '''<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Template: Source 
 		+ GWT + in workspace dependencies 27.11.2010 --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">

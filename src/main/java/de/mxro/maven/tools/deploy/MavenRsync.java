@@ -73,7 +73,6 @@ public class MavenRsync {
                     .resolve(params.artifact().artifactId() + "-" + params.artifact().version() + ".jar");
 
             Files.copy(sourceJar, newJar);
-
             WriteHashes.forFile(newJar);
 
             final Path sourcePom = params.projectDir().resolve("pom.xml");
