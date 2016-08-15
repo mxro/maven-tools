@@ -20,7 +20,7 @@ class TestGenerateHashes {
 		
 		pom.text = POM_CONTENT
 		
-		WriteHashes.forFile(new File(pom.path).toPath)
+		//WriteHashes.forFile(new File(pom.path).toPath)
 		
 		//println(folder.get("pom.xml.md5").text)
 		
