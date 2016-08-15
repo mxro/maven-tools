@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -23,7 +24,7 @@ public class WriteHashes {
         FileInputStream inputStream = null;
         try {
             inputStream = new FileInputStream(file);
-
+            org.bouncycastle.util.encoders.Hex.encode(arg0)
             value = DigestUtils.md5Hex(IOUtils.toByteArray(inputStream));
         } catch (final IOException e) {
             throw new RuntimeException(e);
@@ -38,31 +39,12 @@ public class WriteHashes {
         final Path md5File = baseFile.getFileSystem().getPath(baseFile.toString() + ".md5");
 
         Files.write(md5File, getMd5ForFile(baseFile.toFile()).getBytes("UTF-8"));
-        // System.out.println(getMd5ForFile(baseFile.toFile()));
-        // System.out.println(Spawn.sh("mvn checksum:file -Dfile=" +
-        // baseFile.toFile().getAbsolutePath()));
-        // final byte[] md5 =
-        // MessageDigest.getInstance("MD5").digest(Files.readAllBytes(baseFile));
-        //
-        // final StringBuffer sb = new StringBuffer();
-        // for (int i = 0; i < md5.length; i++) {
-        // sb.append(Integer.toString((md5[i] & 0xff) + 0x100,
-        // 16).substring(1));
-        // }
-        //
-        // final StringBuffer hexString = new StringBuffer();
-        // for (int i = 0; i < md5.length; i++) {
-        // final String hex = Integer.toHexString(0xff & md5[i]);
-        // if (hex.length() == 1) {
-        // hexString.append('0');
-        // }
-        // hexString.append(hex);
-        // }
-        //
-        // final Path md5File =
-        // baseFile.getFileSystem().getPath(baseFile.toString() + ".md5");
-        //
-        // Files.write(md5File, hexString.toString().getBytes("UTF-8"));
+
+        final byte[] md5 = MessageDigest.getInstance("MD5").digest(Files.readAllBytes(baseFile));
+
+        final Path md5File = baseFile.getFileSystem().getPath(baseFile.toString() + ".md5");
+
+        Files.write(md5File, hexString.toString().getBytes("UTF-8"));
 
     }
 
