@@ -24,20 +24,16 @@ public class TestThatDependenciesCanBeReplaced {
   
   @Test
   public void test() {
-    File _newFolder = this.tempFolder.newFolder("test");
-    final FileItem root = FilesJre.wrap(_newFolder);
+    final FileItem root = FilesJre.wrap(this.tempFolder.newFolder("test"));
     final FileItem pom = root.createFile("pom.xml");
     pom.setText(this.examplePom);
     String _path = root.getPath();
     File _file = new File(_path);
-    Dependency _define = Dependency.define("junit", "junit", null);
-    Dependency _define_1 = Dependency.define("junit", "junit", "4.11");
-    MavenProject.replaceDependency(_file, _define, _define_1);
-    String _text = pom.getText();
-    boolean _contains = _text.contains("<version>4.7</version>");
+    MavenProject.replaceDependency(_file, Dependency.define("junit", "junit", null), 
+      Dependency.define("junit", "junit", "4.11"));
+    boolean _contains = pom.getText().contains("<version>4.7</version>");
     TestThatDependenciesCanBeReplaced.<Boolean, Boolean>operator_doubleArrow(Boolean.valueOf(_contains), Boolean.valueOf(false));
-    String _text_1 = pom.getText();
-    boolean _contains_1 = _text_1.contains("<version>4.11</version>");
+    boolean _contains_1 = pom.getText().contains("<version>4.11</version>");
     TestThatDependenciesCanBeReplaced.<Boolean, Boolean>operator_doubleArrow(Boolean.valueOf(_contains_1), Boolean.valueOf(true));
   }
   
