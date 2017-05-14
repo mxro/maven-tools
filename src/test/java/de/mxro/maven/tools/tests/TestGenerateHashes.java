@@ -4,6 +4,7 @@ import de.mxro.file.FileItem;
 import de.mxro.file.Jre.FilesJre;
 import de.mxro.maven.tools.WriteHashes;
 import java.io.File;
+import java.nio.file.Path;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
@@ -20,12 +21,17 @@ public class TestGenerateHashes {
   @Test
   public void test() {
     try {
-      final FileItem folder = FilesJre.wrap(this.folder.newFolder("test"));
+      File _newFolder = this.folder.newFolder("test");
+      final FileItem folder = FilesJre.wrap(_newFolder);
       final FileItem pom = folder.createFile("pom.xml");
       pom.setText(TestGenerateHashes.POM_CONTENT);
       String _path = pom.getPath();
-      WriteHashes.forFile(new File(_path).toPath());
-      InputOutput.<String>println(folder.get("pom.xml.md5").getText());
+      File _file = new File(_path);
+      Path _path_1 = _file.toPath();
+      WriteHashes.forFile(_path_1);
+      FileItem _get = folder.get("pom.xml.md5");
+      String _text = _get.getText();
+      InputOutput.<String>println(_text);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
