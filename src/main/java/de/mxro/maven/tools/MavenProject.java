@@ -156,16 +156,20 @@ public class MavenProject {
 		}
 		throw new RuntimeException("No pom.xml found in project dir " + projectDir);
 	}
-
-	public static void setVersion(final File projectDir, final String version) {
-
+	
+	public static File getPomFile(final File projectDir) {
 		for (final File file : projectDir.listFiles()) {
 			if (file.getName().equals("pom.xml")) {
-				replaceVersion(file, version);
-				return;
+				
+				return file;
 			}
 		}
 		throw new RuntimeException("No pom.xml found in project dir " + projectDir);
+	}
+	
+	public static void setVersion(final File projectDir, final String version) {
+		replaceVersion(getPomFile(projectDir), version);
+		
 	}
 
 	/**
@@ -240,15 +244,10 @@ public class MavenProject {
 			return false;
 		}
 
-		// if (dependencies.size() != 1) {
-		// throw new RuntimeException("Illegal pom [" + pom + "]");
-		// }
-
-		// System.out.println(dependencies);
+	
+		
 
 		final Match children = dependencies.children("dependency");
-
-		// System.out.println(children);
 
 		boolean changed = false;
 		for (final org.w3c.dom.Element e : children) {
@@ -363,6 +362,66 @@ public class MavenProject {
 
 				if (!found && line.contains("<version>")) {
 					lines.add("    <version>" + newVersion + "</version>");
+					found = true;
+				} else {
+					lines.add(line);
+				}
+				line = in.readLine();
+			}
+			in.close();
+
+			final PrintWriter out = new PrintWriter(pomFile);
+			for (final String l : lines) {
+				out.println(l);
+			}
+			out.close();
+		} catch (final IOException ex) {
+			throw new RuntimeException(ex);
+		}
+
+	}
+	
+	public static void setArtifactId(final File pomFile, final String newArtifactId) {
+		try {
+			final List<String> lines = new ArrayList<String>();
+
+			final BufferedReader in = new BufferedReader(new FileReader(pomFile));
+			String line = in.readLine();
+			boolean found = false;
+			while (line != null) {
+
+				if (!found && line.contains("<artifactId>")) {
+					lines.add("    <artifactId>" + newArtifactId + "</artifactId>");
+					found = true;
+				} else {
+					lines.add(line);
+				}
+				line = in.readLine();
+			}
+			in.close();
+
+			final PrintWriter out = new PrintWriter(pomFile);
+			for (final String l : lines) {
+				out.println(l);
+			}
+			out.close();
+		} catch (final IOException ex) {
+			throw new RuntimeException(ex);
+		}
+
+	}
+	
+	public static void setGroupId(final File pomFile, final String newGroupId) {
+		try {
+			final List<String> lines = new ArrayList<String>();
+
+			final BufferedReader in = new BufferedReader(new FileReader(pomFile));
+			String line = in.readLine();
+			boolean found = false;
+			while (line != null) {
+
+				if (!found && line.contains("<groupId>")) {
+					lines.add("    <groupId>" + newGroupId + "</groupId>");
 					found = true;
 				} else {
 					lines.add(line);
