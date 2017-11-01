@@ -59,9 +59,8 @@ public class MavenProject {
 	}
 
 	/**
-	 * Takes a list of Maven project directories (with a pom.xml file) and
-	 * orders it in a way that dependent projects come before projects dependent
-	 * on them.
+	 * Takes a list of Maven project directories (with a pom.xml file) and orders it
+	 * in a way that dependent projects come before projects dependent on them.
 	 * 
 	 * @param directories
 	 * @param buildOrder
@@ -125,7 +124,6 @@ public class MavenProject {
 						return version;
 					}
 
-
 				};
 				res.add(d);
 			}
@@ -156,20 +154,20 @@ public class MavenProject {
 		}
 		throw new RuntimeException("No pom.xml found in project dir " + projectDir);
 	}
-	
+
 	public static File getPomFile(final File projectDir) {
 		for (final File file : projectDir.listFiles()) {
 			if (file.getName().equals("pom.xml")) {
-				
+
 				return file;
 			}
 		}
 		throw new RuntimeException("No pom.xml found in project dir " + projectDir);
 	}
-	
+
 	public static void setVersion(final File projectDir, final String version) {
 		replaceVersion(getPomFile(projectDir), version);
-		
+
 	}
 
 	/**
@@ -207,8 +205,8 @@ public class MavenProject {
 	 * If properties of the provided oldDependency are <code>null</code>, any
 	 * dependency of the project will be matched.
 	 * <p>
-	 * If properties of newDependency are <code>null</code>, the specific
-	 * property will not be replaced.
+	 * If properties of newDependency are <code>null</code>, the specific property
+	 * will not be replaced.
 	 * 
 	 * @param projectDir
 	 * @param oldDependency
@@ -243,9 +241,6 @@ public class MavenProject {
 		if (dependencies.size() == 0) {
 			return false;
 		}
-
-	
-		
 
 		final Match children = dependencies.children("dependency");
 
@@ -319,31 +314,31 @@ public class MavenProject {
 
 		for (final Dependency dependency : buildOrder) {
 			if (map.containsKey(dependency.artifactId())) {
-				System.err.println("Warning: Artifact Id "+dependency.artifactId()+" is not unique for projects.\n"+
-			"  Already in map: "+map.get(dependency.artifactId())+"\n"+
-						"  Cannot be added: "+dependency);
+				System.err.println("Warning: Artifact Id " + dependency.artifactId() + " is not unique for projects.\n"
+						+ "  Already in map: " + map.get(dependency.artifactId()) + "\n" + "  Cannot be added: "
+						+ dependency);
 			}
 			map.put(dependency.artifactId(), dependency);
 
 		}
 
 		for (final File f : directories) {
-				
-			Dependency test = MavenProject.getMavenDependency(f);
-			
-			final Dependency match = map.get(test.artifactId());
+			if (MavenProject.isMavenProject(f)) {
+				Dependency test = MavenProject.getMavenDependency(f);
 
-			if (match == null) {
+				final Dependency match = map.get(test.artifactId());
 
-				continue;
+				if (match == null) {
+
+					continue;
+				}
+
+				unprocessed.remove(f);
+				res.add(f);
 			}
-
-			unprocessed.remove(f);
-			res.add(f);
 
 		}
 
-		
 		if (addOthers) {
 			res.addAll(unprocessed);
 		}
@@ -380,7 +375,7 @@ public class MavenProject {
 		}
 
 	}
-	
+
 	public static void setArtifactId(final File pomFile, final String newArtifactId) {
 		try {
 			final List<String> lines = new ArrayList<String>();
@@ -410,7 +405,7 @@ public class MavenProject {
 		}
 
 	}
-	
+
 	public static void setGroupId(final File pomFile, final String newGroupId) {
 		try {
 			final List<String> lines = new ArrayList<String>();
@@ -446,12 +441,12 @@ public class MavenProject {
 			final byte[] pomBytes = Files.readAllBytes(FileSystems.getDefault().getPath(pomFile.getAbsolutePath()));
 
 			final String pom = new String(pomBytes, "UTF-8");
-			
+
 			final Pattern pattern = Pattern.compile("<name>([^<]*)</name>");
 			final Matcher matcher = pattern.matcher(pom);
 			matcher.find();
 			return matcher.group(1);
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
